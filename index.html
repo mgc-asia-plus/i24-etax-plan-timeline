@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Tax Go-Live Timeline — i24</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#fff; --ink:#1f2430; --muted:#6b7280; --line:#e5e7eb;
+    --bar:#3b82f6; --bar-crit:#ef4444; --bar-done:#10b981; --golive:#f59e0b;
+    --brand:#EC2129;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter","Noto Sans Thai","Segoe UI",Tahoma,sans-serif;font-size:14px;padding:24px}
+  .wrap{max-width:1080px;margin:0 auto}
+  header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+  h1{font-size:20px;margin:0}
+  .sub{color:var(--muted);font-size:13px}
+  .golive-badge{background:var(--brand);color:#fff;padding:4px 12px;border-radius:6px;font-weight:600}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;margin-top:16px;overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:820px}
+  th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;font-size:12.5px}
+  th.task,td.task{text-align:left;white-space:nowrap}
+  thead .mon{background:#f0f2f5;font-weight:600}
+  thead .wk{background:#fafbfc;color:var(--muted);font-weight:500;font-size:11px}
+  td.no{color:var(--muted);width:28px}
+  td.owner{color:var(--muted);white-space:nowrap;font-size:11.5px}
+  .cell{position:relative;height:22px;padding:0}
+  .bar{display:block;height:14px;margin:0 -1px;border-radius:3px}
+  .bar.b{background:var(--bar)} .bar.c{background:var(--bar-crit)} .bar.g{background:var(--golive)}
+  .golive-cell{background:var(--golive);color:#fff;font-weight:700;font-size:11px}
+  .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+  .st-done{background:#d1fae5;color:#065f46}
+  .st-prog{background:#dbeafe;color:#1e40af}
+  .st-todo{background:#f3f4f6;color:#4b5563}
+  .st-crit{background:#fee2e2;color:#991b1b}
+  h2{font-size:15px;margin:0 0 2px}
+  .pcell{width:180px;padding:6px 10px}
+  .pbar-track{position:relative;height:16px;background:#eef1f4;border-radius:8px;overflow:hidden}
+  .pbar-fill{position:absolute;left:0;top:0;height:100%;border-radius:8px}
+  .pbar-fill.done{background:var(--bar-done)} .pbar-fill.prog{background:var(--bar)}
+  .pbar-fill.crit{background:var(--bar-crit)} .pbar-fill.todo{background:#cbd5e1}
+  .pct{font-size:11px;color:var(--muted);width:42px}
+  td.detail{text-align:left;font-size:11.5px;line-height:1.5;white-space:normal;min-width:280px}
+  .summary{margin-top:12px;font-size:12.5px;line-height:1.6}
+  .summary b{color:var(--ink)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted);align-items:center}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:22px;height:12px;border-radius:3px;display:inline-block}
+  .note{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.6}
+  .note b{color:var(--ink)}
+  footer{margin-top:20px;font-size:11px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>E-Tax Go-Live Plan — i24 · CarPro → INet</h1>
+      <div class="sub">Module B · staging → inet.* → INet · ปรับจาก INET Action Plan</div>
+    </div>
+    <div class="golive-badge">Go-Live: 16 ต.ค. 2026</div>
+  </header>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th class="no" rowspan="2">#</th>
+          <th class="task" rowspan="2">การดำเนินการ</th>
+          <th rowspan="2">ผู้รับผิดชอบ</th>
+          <th class="mon">AUG</th>
+          <th class="mon" colspan="5">SEPTEMBER</th>
+          <th class="mon" colspan="2">OCTOBER</th>
+          <th rowspan="2">Status</th>
+        </tr>
+        <tr>
+          <th class="wk">24–30</th>
+          <th class="wk">31–6</th>
+          <th class="wk">7–13</th>
+          <th class="wk">14–20</th>
+          <th class="wk">21–27</th>
+          <th class="wk">28–4</th>
+          <th class="wk">5–11</th>
+          <th class="wk">12–16</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+
+    <div class="legend">
+      <span><i class="sw" style="background:var(--bar)"></i> งานปกติ</span>
+      <span><i class="sw" style="background:var(--bar-crit)"></i> Critical path</span>
+      <span><i class="sw" style="background:var(--golive)"></i> Go-Live</span>
+      <span><i class="badge st-done">Completed</i></span>
+      <span><i class="badge st-prog">In Progress</i></span>
+      <span><i class="badge st-todo">Not Started</i></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Progress by action (workstream tracker)</h2>
+    <div class="sub" style="margin-bottom:8px">งานพัฒนา A–F ~93% · งาน ops/infra/legal G–N ~3% (critical path = G บ.อ.01 และ I→J SDBAPP→ETL)</div>
+    <table style="min-width:760px">
+      <thead>
+        <tr class="mon">
+          <th class="no">#</th>
+          <th class="task">Action / Workstream</th>
+          <th style="width:180px">Progress</th>
+          <th style="width:42px">%</th>
+          <th>Status</th>
+          <th class="task">รายละเอียด &amp; next action</th>
+        </tr>
+      </thead>
+      <tbody id="prows"></tbody>
+    </table>
+    <div class="summary">
+      <b>สรุป:</b> งานพัฒนา (A–F) พร้อมเกือบเต็ม — เหลือ INet submit format รอยืนยัน resend จริง (C) + monitor เก็บรายละเอียด (F).
+      Go-live จริงถูกกำหนดโดย <b>G (บ.อ.01/Certificate ผ่านสรรพากร)</b> และ <b>I→J (SDBAPP→ETL 2 สัปดาห์)</b>.
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Critical path:</b> บ.อ.01 / Certificate (ผ่านสรรพากร · rush ไม่ได้) และ SDBAPP → ETL 2 สัปดาห์ ก่อนเริ่มทดสอบ transform/submit<br>
+    <b>Prereq timeline:</b> SDBAPP พร้อม 31 ส.ค.–4 ก.ย. → ETL 2 สัปดาห์ (~5–18 ก.ย.) → staging พร้อม แล้วจึงเริ่ม SIT/UAT<br>
+    <b>D5 locked:</b> GitHub Actions · ECS Fargate · RDS for SQL Server · Terraform · Secrets Manager<br>
+    <b>หมายเหตุ:</b> i24 ส่งผ่าน INet API v2.2 (ไม่ใช่ sFTP ตาม template INET) — ต้องยืนยัน integration mode กับ INET<br>
+    <b>งานใหม่ (Phase 1):</b> ใบลดหนี้ (OEB 4.4/CDN0402) + payment/footer ยังไม่รองรับในโค้ด — dev ต้องเสร็จก่อน SIT (ดู golive_plan.md §11)
+  </div>
+
+  <footer>Powered by i24 · อ้างอิง: golive_plan.md (§1b) · golive_timeline.csv · Last updated 26 ส.ค. 2026</footer>
+</div>
+
+<script>
+// [no, task, owner, startWeek, endWeek, barClass, status]  weeks 1..8 ; status: done|prog|todo ; -1,-1 = no bar
+const data = [
+  [1,"Kickoff + Requirement + Design","i24",0,0,"","done"],
+  [2,"Development (invoice ปกติ type D)","i24",0,0,"","done"],
+  [3,"หา ref/reason/payment fields ใน CarPro","i24+data",1,1,"c","done"],
+  [4,"Dev: ใบลดหนี้ (CDN/81) + refer + reason","i24",2,4,"b","done"],
+  [5,"Dev: payment/credit card + footer text","i24",2,3,"b","prog"],
+  [6,"บ.อ.01 / Certificate (RD register)","ธุรการ+INET",1,7,"c","todo"],
+  [7,"SDBAPP + ETL raw.carpro_* (2 wk)","ทีม data",2,4,"b","todo"],
+  [8,"Infra AWS: RDS → ECS + CI/CD","i24",2,4,"b","todo"],
+  [9,"Deploy SQL schema (inet/staging/registry)","i24",3,3,"b","prog"],
+  [10,"SIT / INet sandbox (ปกติ + ลดหนี้)","i24+INET",5,5,"b","todo"],
+  [11,"UAT + Training web portal","i24+INET",6,6,"b","todo"],
+  [12,"Deployment prod + readiness + freeze","i24",7,8,"b","todo"],
+  [13,"Go-Live (เปิด cron etax_transform)","i24",8,8,"g","todo"],
+];
+const stMap={done:["st-done","Completed"],prog:["st-prog","In Progress"],todo:["st-todo","Not Started"],crit:["st-crit","Critical"]};
+const tb=document.getElementById("rows");
+data.forEach(r=>{
+  const [no,task,owner,s,e,cls,st]=r;
+  let cells="";
+  for(let w=1;w<=8;w++){
+    if(no===13 && w===8){ cells+=`<td class="golive-cell">Go Live</td>`; continue; }
+    if(s>0 && w>=s && w<=e){ cells+=`<td class="cell"><span class="bar ${cls}"></span></td>`; }
+    else { cells+=`<td class="cell"></td>`; }
+  }
+  const [scls,slabel]=stMap[st];
+  tb.insertAdjacentHTML("beforeend",
+    `<tr><td class="no">${no}</td><td class="task">${task}</td><td class="owner">${owner}</td>${cells}<td><span class="badge ${scls}">${slabel}</span></td></tr>`);
+});
+
+// Progress by action (§1b) — [id, action, pct, status, detail]  status: done|prog|todo|crit
+const prog = [
+  ["A","App code — invoice ปกติ (T03)",100,"done","mapper/validator/payload/persist + test เขียว · T03 ต้องมี tit (amount≥0 ไม่มี tit → บล็อก). Next: —"],
+  ["B","App code — ใบลดหนี้ (81)",100,"done","CN = APPLY_TO_INVOICE_NO + ใบต้นฉบับ INV_STATUS=9 · H07/H08/H09 + Original/Different · ยอดลบไม่เข้าเกณฑ์ → บล็อก+guard. Next: ยืนยันเคส 23 ใบ CN ยอด≥0"],
+  ["C","INet payload — format ตาม TextFileLayout",80,"prog","แก้ตาม ER002 จริง: L21–L26/L34 per-line tax · L36/L37 net-incl-tax · discount = line allowance L26/L27 · persist vat_amount+allowance_amount. Next: re-transform+resend ยืนยัน INet รับ; ไล่ error ถัดไป"],
+  ["D","Vehicle detail + payment source",100,"done","vehicle: RESERVATION→CARSALE_OVERRIDE_LOG(ล่าสุด)→CAR_TECHNICAL · F34 payment: CASH_TRANSACTIONS (RECEIPT), PAYMENT RECEIVED=tax_inv_date. Next: —"],
+  ["E","SQL schema/staging (raw→staging→inet)",90,"prog","scripts เขียน+deploy local + reconcile 100% · 12→14 raw tables · guarded ALTER vat_amount/allowance_amount. Next: deploy ลำดับเดิมบน preprod (M4)"],
+  ["F","Admin UI (search/mapping/monitor)",90,"prog","search + document-style mapping preview (bahtText, vehicle, F34, reconcile/unknown-element guard). Next: H2 monitor โชว์ doc type/refer/reason ให้ครบ"],
+  ["G","Certificate / บ.อ.01 (สรรพากร)",0,"crit","long-lead critical path — 5 เอกสาร → INET ขอ CA → ลงทะเบียน บ.อ.01. Next: เริ่มรวบรวมเอกสารทันที (W1), ตั้ง owner ธุรการ+INET"],
+  ["H","INET coordination (API mode/SIT/UAT)",20,"prog","ต้องยืนยัน integration = API v2.2 ไม่ใช่ sFTP + ServiceCode + template 2562-T03. Next: ยืนยัน mode + จอง slot SIT/UAT"],
+  ["I","SDBAPP (prereq)",0,"todo","ต้องพร้อม 31 ส.ค.–4 ก.ย. ก่อน ETL. Next: ล็อกวันกับทีม infra"],
+  ["J","ETL raw.carpro_* (2 สัปดาห์)",0,"todo","ทีม data โหลด + sync รายวัน หลัง SDBAPP (local dev มี clone ทดสอบแล้ว). Next: เริ่มหลัง SDBAPP → staging พร้อม ~18–19 ก.ย."],
+  ["K","AWS infra (RDS→ECS/Terraform/CI-CD)",0,"todo","RDS ก่อน → ECS api/worker/cron + pipeline (build CSS→build→test→migration gate). Next: AWS baseline (VPC/IAM/OIDC) W1"],
+  ["L","SIT — INet sandbox",0,"todo","sample 3 เคส (TH / FOREIGN+ISO2 / FOREIGN บล็อก). Next: หลัง staging มีข้อมูล (M4)"],
+  ["M","UAT + Training",0,"todo","UAT admin + training web portal INET. Next: หลัง SIT ผ่าน (M6)"],
+  ["N","Production cutover + day-1 watch",0,"todo","เปิด cron etax_transform prod + เฝ้า failed/submit_status. Next: M8 (16 ต.ค.)"],
+];
+const pb=document.getElementById("prows");
+prog.forEach(r=>{
+  const [id,action,pct,st,detail]=r;
+  const [scls,slabel]=stMap[st];
+  pb.insertAdjacentHTML("beforeend",
+    `<tr><td class="no">${id}</td><td class="task">${action}</td>`+
+    `<td class="pcell"><div class="pbar-track"><span class="pbar-fill ${st}" style="width:${pct}%"></span></div></td>`+
+    `<td class="pct">${pct}%</td>`+
+    `<td><span class="badge ${scls}">${slabel}</span></td>`+
+    `<td class="detail">${detail}</td></tr>`);
+});
+</script>
+</body>
+</html>
