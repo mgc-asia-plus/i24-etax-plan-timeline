@@ -101,7 +101,7 @@
 
   <div class="card">
     <h2>Progress by action (workstream tracker)</h2>
-    <div class="sub" style="margin-bottom:8px">งานพัฒนา A–F ~93% · งาน ops/infra/legal G–N ~3% (critical path = G บ.อ.01 และ I→J SDBAPP→ETL)</div>
+    <div class="sub" style="margin-bottom:8px">งานพัฒนา A–F ~97% (INet UAT OK ✅) · งาน ops/infra/legal G–N ~10% (critical path = G บ.อ.01 <b>BU PENDING</b> และ I→J SDBAPP→raw sync)</div>
     <table style="min-width:760px">
       <thead>
         <tr class="mon">
@@ -117,7 +117,7 @@
     </table>
     <div class="summary">
       <b>สรุป:</b> งานพัฒนา (A–F) พร้อมเกือบเต็ม — เหลือ INet submit format รอยืนยัน resend จริง (C) + monitor เก็บรายละเอียด (F).
-      Go-live จริงถูกกำหนดโดย <b>G (บ.อ.01/Certificate ผ่านสรรพากร)</b> และ <b>I→J (SDBAPP→ETL 2 สัปดาห์)</b>.
+      Go-live จริงถูกกำหนดโดย <b>G (บ.อ.01/Certificate ผ่านสรรพากร — BU PENDING/กำลังดำเนินการ)</b> และ <b>I→J (SDBAPP→raw sync 2 สัปดาห์)</b>.
     </div>
   </div>
 
@@ -129,7 +129,7 @@
     <b>งานใหม่ (Phase 1):</b> ใบลดหนี้ (OEB 4.4/CDN0402) + payment/footer ยังไม่รองรับในโค้ด — dev ต้องเสร็จก่อน SIT (ดู golive_plan.md §11)
   </div>
 
-  <footer>Powered by i24 · อ้างอิง: golive_plan.md (§1b) · golive_timeline.csv · Last updated 26 ส.ค. 2026</footer>
+  <footer>Powered by i24 · อ้างอิง: plan_timeline.md (§1b) · Last updated 27 ส.ค. 2026</footer>
 </div>
 
 <script>
@@ -140,8 +140,8 @@ const data = [
   [3,"หา ref/reason/payment fields ใน CarPro","i24+data",1,1,"c","done"],
   [4,"Dev: ใบลดหนี้ (CDN/81) + refer + reason","i24",2,4,"b","done"],
   [5,"Dev: payment/credit card + footer text","i24",2,3,"b","prog"],
-  [6,"บ.อ.01 / Certificate (RD register)","ธุรการ+INET",1,7,"c","todo"],
-  [7,"SDBAPP + ETL raw.carpro_* (2 wk)","ทีม data",2,4,"b","todo"],
+  [6,"บ.อ.01 / Certificate (RD register) — BU PENDING","BU+INET",1,7,"c","prog"],
+  [7,"SDBAPP + raw.carpro_* sync (2 wk)","i24-data-agent",2,4,"b","todo"],
   [8,"Infra AWS: RDS → ECS + CI/CD","i24",2,4,"b","todo"],
   [9,"Deploy SQL schema (inet/staging/registry)","i24",3,3,"b","prog"],
   [10,"SIT / INet sandbox (ปกติ + ลดหนี้)","i24+INET",5,5,"b","todo"],
@@ -168,14 +168,14 @@ data.forEach(r=>{
 const prog = [
   ["A","App code — invoice ปกติ (T03)",100,"done","mapper/validator/payload/persist + test เขียว · T03 ต้องมี tit (amount≥0 ไม่มี tit → บล็อก). Next: —"],
   ["B","App code — ใบลดหนี้ (81)",100,"done","CN = APPLY_TO_INVOICE_NO + ใบต้นฉบับ INV_STATUS=9 · H07/H08/H09 + Original/Different · ยอดลบไม่เข้าเกณฑ์ → บล็อก+guard. Next: ยืนยันเคส 23 ใบ CN ยอด≥0"],
-  ["C","INet payload — format ตาม TextFileLayout",80,"prog","แก้ตาม ER002 จริง: L21–L26/L34 per-line tax · L36/L37 net-incl-tax · discount = line allowance L26/L27 · persist vat_amount+allowance_amount. Next: re-transform+resend ยืนยัน INet รับ; ไล่ error ถัดไป"],
+  ["C","INet payload — JSON method (etaxsigndocumentjson)",100,"done","เปลี่ยน CSV→JSON keyed object · F-code generic (F38/F46/F48/F50) · phone +66- · H05/H06 CN · UAT OK 27 ส.ค. (PDF/XML). Next: ทดสอบ CN (81) จริง"],
   ["D","Vehicle detail + payment source",100,"done","vehicle: RESERVATION→CARSALE_OVERRIDE_LOG(ล่าสุด)→CAR_TECHNICAL · F34 payment: CASH_TRANSACTIONS (RECEIPT), PAYMENT RECEIVED=tax_inv_date. Next: —"],
   ["E","SQL schema/staging (raw→staging→inet)",90,"prog","scripts เขียน+deploy local + reconcile 100% · 12→14 raw tables · guarded ALTER vat_amount/allowance_amount. Next: deploy ลำดับเดิมบน preprod (M4)"],
   ["F","Admin UI (search/mapping/monitor)",90,"prog","search + document-style mapping preview (bahtText, vehicle, F34, reconcile/unknown-element guard). Next: H2 monitor โชว์ doc type/refer/reason ให้ครบ"],
-  ["G","Certificate / บ.อ.01 (สรรพากร)",0,"crit","long-lead critical path — 5 เอกสาร → INET ขอ CA → ลงทะเบียน บ.อ.01. Next: เริ่มรวบรวมเอกสารทันที (W1), ตั้ง owner ธุรการ+INET"],
-  ["H","INET coordination (API mode/SIT/UAT)",20,"prog","ต้องยืนยัน integration = API v2.2 ไม่ใช่ sFTP + ServiceCode + template 2562-T03. Next: ยืนยัน mode + จอง slot SIT/UAT"],
+  ["G","Certificate / บ.อ.01 (สรรพากร)",20,"prog","BU PENDING (กำลังดำเนินการ) — long-lead critical path · owner=BU+INET · 5 เอกสาร → INET ขอ CA → ลงทะเบียน บ.อ.01. Next: BU ส่งเอกสารครบให้ INET → M1"],
+  ["H","INET coordination (JSON method/SIT/UAT)",50,"prog","ยืนยันแล้ว: JSON method (etaxsigndocumentjson) ✅ · UAT OK ✅ · ServiceCode=S03. Next: จอง slot SIT/UAT formal + prod endpoint/key"],
   ["I","SDBAPP (prereq)",0,"todo","ต้องพร้อม 31 ส.ค.–4 ก.ย. ก่อน ETL. Next: ล็อกวันกับทีม infra"],
-  ["J","ETL raw.carpro_* (2 สัปดาห์)",0,"todo","ทีม data โหลด + sync รายวัน หลัง SDBAPP (local dev มี clone ทดสอบแล้ว). Next: เริ่มหลัง SDBAPP → staging พร้อม ~18–19 ก.ย."],
+  ["J","raw.carpro_* sync — i24-data-agent (2 สัปดาห์)",0,"todo","i24-data-agent (repo แยก แทน DCOE) sync CarPro → raw รายวัน หลัง SDBAPP (local dev มี clone ทดสอบแล้ว). Next: เริ่มหลัง SDBAPP → staging พร้อม ~18–19 ก.ย."],
   ["K","AWS infra (RDS→ECS/Terraform/CI-CD)",0,"todo","RDS ก่อน → ECS api/worker/cron + pipeline (build CSS→build→test→migration gate). Next: AWS baseline (VPC/IAM/OIDC) W1"],
   ["L","SIT — INet sandbox",0,"todo","sample 3 เคส (TH / FOREIGN+ISO2 / FOREIGN บล็อก). Next: หลัง staging มีข้อมูล (M4)"],
   ["M","UAT + Training",0,"todo","UAT admin + training web portal INET. Next: หลัง SIT ผ่าน (M6)"],
