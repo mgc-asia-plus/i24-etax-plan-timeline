@@ -3,194 +3,523 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Tax Go-Live Timeline — i24</title>
+<title>E-Tax Go-Live Plan — i24 · CarPro → INet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f7f8fa; --card:#fff; --ink:#1f2430; --muted:#6b7280; --line:#e5e7eb;
-    --bar:#3b82f6; --bar-crit:#ef4444; --bar-done:#10b981; --golive:#f59e0b;
-    --brand:#EC2129;
+    --bg:#eef1f6; --card:#fff; --ink:#1e2430; --ink2:#3d4657; --muted:#6b7280; --line:#e2e6ee;
+    --brand:#EC2129; --brand-dk:#c81922; --brand-soft:#fef2f2;
+    --blue:#2563eb; --blue-soft:#eff4ff;
+    --green:#0f9d63; --green-soft:#e7f7ef;
+    --amber:#e08600; --amber-soft:#fff5e6;
+    --slate:#94a3b8; --slate-soft:#f1f5f9;
+    --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 16px rgba(16,24,40,.06);
+    --shadow-lg:0 4px 24px rgba(16,24,40,.10);
+    --r:14px;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Inter","Noto Sans Thai","Segoe UI",Tahoma,sans-serif;font-size:14px;padding:24px}
-  .wrap{max-width:1080px;margin:0 auto}
-  header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px}
-  h1{font-size:20px;margin:0}
-  .sub{color:var(--muted);font-size:13px}
-  .golive-badge{background:var(--brand);color:#fff;padding:4px 12px;border-radius:6px;font-weight:600}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;margin-top:16px;overflow-x:auto}
-  table{border-collapse:collapse;width:100%;min-width:820px}
-  th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;font-size:12.5px}
-  th.task,td.task{text-align:left;white-space:nowrap}
-  thead .mon{background:#f0f2f5;font-weight:600}
-  thead .wk{background:#fafbfc;color:var(--muted);font-weight:500;font-size:11px}
-  td.no{color:var(--muted);width:28px}
-  td.owner{color:var(--muted);white-space:nowrap;font-size:11.5px}
-  .cell{position:relative;height:22px;padding:0}
-  .bar{display:block;height:14px;margin:0 -1px;border-radius:3px}
-  .bar.b{background:var(--bar)} .bar.c{background:var(--bar-crit)} .bar.g{background:var(--golive)}
-  .golive-cell{background:var(--golive);color:#fff;font-weight:700;font-size:11px}
-  .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
-  .st-done{background:#d1fae5;color:#065f46}
-  .st-prog{background:#dbeafe;color:#1e40af}
-  .st-todo{background:#f3f4f6;color:#4b5563}
-  .st-crit{background:#fee2e2;color:#991b1b}
-  h2{font-size:15px;margin:0 0 2px}
-  .pcell{width:180px;padding:6px 10px}
-  .pbar-track{position:relative;height:16px;background:#eef1f4;border-radius:8px;overflow:hidden}
-  .pbar-fill{position:absolute;left:0;top:0;height:100%;border-radius:8px}
-  .pbar-fill.done{background:var(--bar-done)} .pbar-fill.prog{background:var(--bar)}
-  .pbar-fill.crit{background:var(--bar-crit)} .pbar-fill.todo{background:#cbd5e1}
-  .pct{font-size:11px;color:var(--muted);width:42px}
-  td.detail{text-align:left;font-size:11.5px;line-height:1.5;white-space:normal;min-width:280px}
-  .summary{margin-top:12px;font-size:12.5px;line-height:1.6}
-  .summary b{color:var(--ink)}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted);align-items:center}
-  .legend span{display:inline-flex;align-items:center;gap:6px}
-  .sw{width:22px;height:12px;border-radius:3px;display:inline-block}
-  .note{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.6}
-  .note b{color:var(--ink)}
-  footer{margin-top:20px;font-size:11px;color:var(--muted);text-align:center}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:linear-gradient(180deg,#e9edf5 0,#eef1f6 240px);color:var(--ink);
+    font-family:"Prompt","Inter","Noto Sans Thai","Segoe UI",Tahoma,sans-serif;font-size:14px;
+    -webkit-font-smoothing:antialiased;line-height:1.55;padding:28px 20px 56px}
+  .wrap{max-width:1120px;margin:0 auto}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ---------- Hero ---------- */
+  .hero{background:linear-gradient(135deg,#fff 0,#fdf4f4 100%);border:1px solid var(--line);
+    border-radius:20px;padding:24px 26px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;
+    background:radial-gradient(circle,rgba(236,33,41,.10) 0,transparent 70%);pointer-events:none}
+  .hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .kicker{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;
+    letter-spacing:.04em;color:var(--brand);background:var(--brand-soft);
+    padding:5px 11px;border-radius:20px;text-transform:uppercase}
+  .kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--brand);
+    box-shadow:0 0 0 3px rgba(236,33,41,.18)}
+  h1{font-size:26px;line-height:1.2;margin:12px 0 4px;font-weight:800;letter-spacing:-.01em}
+  .hero .flow{color:var(--ink2);font-size:13.5px;margin:0}
+  .hero .flow code{background:#fff;border:1px solid var(--line);border-radius:6px;
+    padding:1px 7px;font-size:12.5px;color:var(--brand-dk)}
+  .countdown{text-align:center;background:var(--brand);color:#fff;border-radius:16px;
+    padding:14px 22px;box-shadow:0 6px 18px rgba(236,33,41,.28);min-width:150px}
+  .countdown .big{font-size:34px;font-weight:800;line-height:1}
+  .countdown .lbl{font-size:11px;opacity:.92;margin-top:3px;letter-spacing:.03em}
+  .countdown .date{font-size:12.5px;font-weight:600;margin-top:8px;padding-top:8px;
+    border-top:1px solid rgba(255,255,255,.28)}
+
+  /* KPI cards */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:20px}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+  .kpi .kt{font-size:12px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:6px}
+  .kpi .kv{font-size:22px;font-weight:800;margin-top:6px;line-height:1}
+  .kpi .kv small{font-size:13px;font-weight:600;color:var(--muted)}
+  .ring{--p:0;--c:var(--blue);width:46px;height:46px;border-radius:50%;flex-shrink:0;
+    background:conic-gradient(var(--c) calc(var(--p)*1%),#e8ecf3 0);
+    display:grid;place-items:center;font-size:11.5px;font-weight:800;color:var(--ink)}
+  .ring::before{content:"";position:absolute;width:34px;height:34px;background:#fff;border-radius:50%}
+  .ring span{position:relative}
+  .kpi.dev{display:flex;align-items:center;gap:14px}
+  .kpi.ops{display:flex;align-items:center;gap:14px}
+
+  /* ---------- section ---------- */
+  .section{margin-top:26px}
+  .section-h{display:flex;align-items:center;gap:10px;margin:0 2px 12px}
+  .section-h .ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+    background:var(--brand-soft);color:var(--brand);font-size:16px;flex-shrink:0}
+  .section-h h2{font-size:17px;margin:0;font-weight:800}
+  .section-h .hint{color:var(--muted);font-size:12.5px;margin-left:auto;text-align:right}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:18px 20px}
+
+  /* ---------- Critical path banner ---------- */
+  .crit-banner{background:linear-gradient(135deg,#fff7ed 0,#fff 60%);border:1px solid #fcd9a8;
+    border-left:5px solid var(--amber);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .crit-banner h3{margin:0 0 10px;font-size:14px;display:flex;align-items:center;gap:8px;color:#92400e}
+  .crit-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .crit-item{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+  .crit-item .ci-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px}
+  .crit-item .tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:12px;margin-left:auto}
+  .tag.pending{background:var(--amber-soft);color:var(--amber)}
+  .tag.wait{background:var(--slate-soft);color:#475569}
+  .crit-item p{margin:7px 0 0;font-size:12px;color:var(--ink2);line-height:1.5}
+
+  /* ---------- Gantt ---------- */
+  .gantt-scroll{overflow-x:auto;border-radius:10px}
+  table.gantt{border-collapse:separate;border-spacing:0;width:100%;min-width:860px;font-size:12.5px}
+  .gantt th,.gantt td{padding:0;text-align:center}
+  .gantt thead th{position:sticky;top:0;background:#f7f9fc;z-index:2;font-weight:700;color:var(--ink2);
+    border-bottom:2px solid var(--line);padding:7px 6px}
+  .gantt thead .mon{border-left:1px solid var(--line)}
+  .gantt thead .wk{font-size:10.5px;color:var(--muted);font-weight:600;padding:5px 4px;background:#fbfcfe}
+  .gantt td.no{color:var(--muted);width:26px;font-weight:600}
+  .gantt td.tk{text-align:left;white-space:nowrap;padding:8px 10px;font-weight:600;color:var(--ink)}
+  .gantt td.ow{text-align:left;color:var(--muted);white-space:nowrap;font-size:11px;padding-right:10px}
+  .gantt tbody tr{transition:background .12s}
+  .gantt tbody tr:hover{background:#f6f9ff}
+  .gantt tbody td{border-bottom:1px solid #f0f2f6}
+  .gcell{height:34px;position:relative;min-width:66px}
+  .gcell.wknd{background:repeating-linear-gradient(45deg,#fafbfd,#fafbfd 6px,#f4f6fa 6px,#f4f6fa 12px)}
+  .bar{position:absolute;top:8px;bottom:8px;left:3px;right:3px;border-radius:6px;
+    display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.14)}
+  .bar.b{background:linear-gradient(180deg,#3b82f6,#2563eb)}
+  .bar.c{background:linear-gradient(180deg,#fb7185,#e11d48)}
+  .bar.d{background:linear-gradient(180deg,#34d399,#0f9d63)}
+  .bar.g{background:linear-gradient(180deg,#fbbf24,#e08600)}
+  .bar.round-l{border-top-left-radius:6px;border-bottom-left-radius:6px}
+  .bar .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.9);margin-right:4px}
+  .milestone{position:absolute;top:2px;font-size:14px;z-index:3;left:50%;transform:translateX(-50%)}
+  .golive-flag{background:var(--brand);color:#fff;border-radius:6px;font-size:10px;font-weight:800;
+    position:absolute;inset:8px 3px;display:grid;place-items:center;box-shadow:0 2px 6px rgba(236,33,41,.4)}
+
+  /* status pill */
+  .pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;
+    font-size:11px;font-weight:700;white-space:nowrap}
+  .pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .p-done{background:var(--green-soft);color:var(--green)}
+  .p-prog{background:var(--blue-soft);color:var(--blue)}
+  .p-todo{background:var(--slate-soft);color:#64748b}
+  .p-crit{background:var(--brand-soft);color:var(--brand)}
+
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--muted);align-items:center}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .sw{width:22px;height:11px;border-radius:4px;display:inline-block}
+
+  /* ---------- Workstream tracker ---------- */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .fbtn{border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:20px;
+    padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .14s;
+    font-family:inherit;display:inline-flex;align-items:center;gap:6px}
+  .fbtn:hover{border-color:var(--slate);background:#f8fafc}
+  .fbtn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .fbtn .cnt{background:rgba(0,0,0,.08);border-radius:10px;padding:0 7px;font-size:11px}
+  .fbtn.active .cnt{background:rgba(255,255,255,.22)}
+
+  .ws-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+  .ws{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px 16px;
+    box-shadow:var(--shadow);border-left:4px solid var(--slate);transition:transform .12s,box-shadow .12s}
+  .ws:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .ws.st-done{border-left-color:var(--green)}
+  .ws.st-prog{border-left-color:var(--blue)}
+  .ws.st-todo{border-left-color:var(--slate)}
+  .ws.st-crit{border-left-color:var(--brand)}
+  .ws-top{display:flex;align-items:center;gap:10px}
+  .ws-id{width:26px;height:26px;border-radius:8px;background:var(--slate-soft);color:var(--ink2);
+    display:grid;place-items:center;font-weight:800;font-size:12px;flex-shrink:0}
+  .ws.st-done .ws-id{background:var(--green-soft);color:var(--green)}
+  .ws.st-prog .ws-id{background:var(--blue-soft);color:var(--blue)}
+  .ws.st-crit .ws-id{background:var(--brand-soft);color:var(--brand)}
+  .ws-title{font-weight:700;font-size:13.5px;flex:1;line-height:1.3}
+  .ws-bar{margin:11px 0 8px;height:8px;background:#eef1f6;border-radius:6px;overflow:hidden}
+  .ws-fill{height:100%;border-radius:6px;transition:width .5s ease}
+  .ws-fill.done{background:linear-gradient(90deg,#34d399,#0f9d63)}
+  .ws-fill.prog{background:linear-gradient(90deg,#60a5fa,#2563eb)}
+  .ws-fill.todo{background:#cbd5e1}
+  .ws-fill.crit{background:linear-gradient(90deg,#fb7185,#e11d48)}
+  .ws-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .ws-pct{font-size:12px;font-weight:800;color:var(--ink2)}
+  .ws-detail{font-size:12px;color:var(--ink2);line-height:1.55}
+  .ws-detail b{color:var(--ink)}
+  .ws-next{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--muted)}
+  .ws-next b{color:var(--brand-dk);font-weight:700}
+
+  /* ---------- Milestones ---------- */
+  .ms-line{position:relative;padding-left:6px}
+  .ms{display:grid;grid-template-columns:96px 22px 1fr;gap:12px;align-items:start;padding:10px 0}
+  .ms:not(:last-child) .ms-node::after{content:"";position:absolute;left:50%;top:20px;bottom:-14px;
+    width:2px;background:var(--line);transform:translateX(-50%)}
+  .ms-node{position:relative;display:grid;place-items:center}
+  .ms-node .d{width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--slate);z-index:1}
+  .ms.done .ms-node .d{background:var(--green);border-color:var(--green)}
+  .ms.next .ms-node .d{background:#fff;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+  .ms-date{font-size:12px;font-weight:700;color:var(--ink2);text-align:right;padding-top:1px}
+  .ms-date .mid{display:block;font-size:10.5px;color:var(--muted);font-weight:600}
+  .ms-body{padding-top:0}
+  .ms-body .mt{font-weight:700;font-size:13px}
+  .ms-body .mg{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+  /* notes/risks */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .info-card h3{margin:0 0 10px;font-size:13.5px;display:flex;align-items:center;gap:7px}
+  .info-card ul{margin:0;padding-left:0;list-style:none}
+  .info-card li{font-size:12px;color:var(--ink2);padding:6px 0;border-bottom:1px solid #f2f4f8;line-height:1.5}
+  .info-card li:last-child{border-bottom:0}
+  .info-card li b{color:var(--ink)}
+  .info-card code{background:#f1f5f9;border-radius:5px;padding:1px 6px;font-size:11.5px;color:var(--brand-dk)}
+  .chip{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-right:5px}
+  .chip.red{background:var(--brand-soft);color:var(--brand)}
+  .chip.amber{background:var(--amber-soft);color:var(--amber)}
+  .chip.blue{background:var(--blue-soft);color:var(--blue)}
+
+  footer{margin-top:34px;text-align:center;font-size:11.5px;color:var(--muted)}
+  footer .sep{margin:0 6px;opacity:.5}
+
+  @media(max-width:720px){
+    .crit-list,.grid-2{grid-template-columns:1fr}
+    h1{font-size:22px}
+    .countdown{width:100%}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div>
-      <h1>E-Tax Go-Live Plan — i24 · CarPro → INet</h1>
-      <div class="sub">Module B · staging → inet.* → INet · ปรับจาก INET Action Plan</div>
+
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <div class="hero-top">
+      <div>
+        <span class="kicker">Module B · Go-Live Plan</span>
+        <h1>E-Tax — CarPro → INet</h1>
+        <p class="flow">แปลงใบแจ้งหนี้ <code>staging</code> → <code>inet.*</code> → ส่งขึ้น <code>INet</code> · ปรับจาก INET Action Plan มาเป็นฝั่ง i24</p>
+      </div>
+      <div class="countdown">
+        <div class="big" id="cd-days">—</div>
+        <div class="lbl">วันเหลือถึง Go-Live</div>
+        <div class="date">16 ต.ค. 2026 · ศุกร์</div>
+      </div>
     </div>
-    <div class="golive-badge">Go-Live: 16 ต.ค. 2026</div>
-  </header>
 
-  <div class="card">
-    <table>
-      <thead>
-        <tr>
-          <th class="no" rowspan="2">#</th>
-          <th class="task" rowspan="2">การดำเนินการ</th>
-          <th rowspan="2">ผู้รับผิดชอบ</th>
-          <th class="mon">AUG</th>
-          <th class="mon" colspan="5">SEPTEMBER</th>
-          <th class="mon" colspan="2">OCTOBER</th>
-          <th rowspan="2">Status</th>
-        </tr>
-        <tr>
-          <th class="wk">24–30</th>
-          <th class="wk">31–6</th>
-          <th class="wk">7–13</th>
-          <th class="wk">14–20</th>
-          <th class="wk">21–27</th>
-          <th class="wk">28–4</th>
-          <th class="wk">5–11</th>
-          <th class="wk">12–16</th>
-        </tr>
-      </thead>
-      <tbody id="rows"></tbody>
-    </table>
-
-    <div class="legend">
-      <span><i class="sw" style="background:var(--bar)"></i> งานปกติ</span>
-      <span><i class="sw" style="background:var(--bar-crit)"></i> Critical path</span>
-      <span><i class="sw" style="background:var(--golive)"></i> Go-Live</span>
-      <span><i class="badge st-done">Completed</i></span>
-      <span><i class="badge st-prog">In Progress</i></span>
-      <span><i class="badge st-todo">Not Started</i></span>
+    <div class="kpis">
+      <div class="kpi dev">
+        <div class="ring" style="--p:100;--c:var(--green)"><span>100%</span></div>
+        <div>
+          <div class="kt">🧩 งานพัฒนา (A–F)</div>
+          <div class="kv">พร้อม <small>· T03 + CN(81) + หน้าจอเจ้าหน้าที่</small></div>
+        </div>
+      </div>
+      <div class="kpi ops">
+        <div class="ring" style="--p:45;--c:var(--amber)"><span>45%</span></div>
+        <div>
+          <div class="kt">🏛️ Ops / Infra / Legal (G–N)</div>
+          <div class="kv">ตัวกำหนดจริง <small>· SIT ผ่าน · UAT 22 ก.ย.</small></div>
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="kt">🚦 Critical path</div>
+        <div class="kv" style="font-size:15px;line-height:1.3">UAT 22 ก.ย. + SDBAPP<br><small style="font-weight:600;color:var(--green)">SIT ผ่าน 100% ✅</small></div>
+      </div>
+      <div class="kpi">
+        <div class="kt">🎉 ล่าสุด (15 ก.ย.)</div>
+        <div class="kv" style="font-size:15px">SIT 100%<br><small style="font-weight:600;color:var(--green)">UAT 22 ก.ย.</small></div>
+      </div>
     </div>
   </div>
 
-  <div class="card">
-    <h2>Progress by action (workstream tracker)</h2>
-    <div class="sub" style="margin-bottom:8px">งานพัฒนา A–F ~97% (INet UAT OK ✅) · งาน ops/infra/legal G–N ~10% (critical path = G บ.อ.01 <b>BU PENDING</b> และ I→J SDBAPP→raw sync)</div>
-    <table style="min-width:760px">
-      <thead>
-        <tr class="mon">
-          <th class="no">#</th>
-          <th class="task">Action / Workstream</th>
-          <th style="width:180px">Progress</th>
-          <th style="width:42px">%</th>
-          <th>Status</th>
-          <th class="task">รายละเอียด &amp; next action</th>
-        </tr>
-      </thead>
-      <tbody id="prows"></tbody>
-    </table>
-    <div class="summary">
-      <b>สรุป:</b> งานพัฒนา (A–F) พร้อมเกือบเต็ม — เหลือ INet submit format รอยืนยัน resend จริง (C) + monitor เก็บรายละเอียด (F).
-      Go-live จริงถูกกำหนดโดย <b>G (บ.อ.01/Certificate ผ่านสรรพากร — BU PENDING/กำลังดำเนินการ)</b> และ <b>I→J (SDBAPP→raw sync 2 สัปดาห์)</b>.
+  <!-- ================= CRITICAL PATH ================= -->
+  <div class="section">
+    <div class="section-h">
+      <div class="ico">🚦</div>
+      <h2>Critical Path — อะไรกำหนดวัน Go-Live</h2>
+      <div class="hint">โค้ดพร้อมแล้ว · รอ 2 เรื่องนี้เป็นหลัก</div>
+    </div>
+    <div class="crit-banner">
+      <h3>✅ บ.อ.01 ปลดล็อกแล้ว — เหลือ 1 งาน long-lead เป็น critical path</h3>
+      <div class="crit-list">
+        <div class="crit-item" style="border-color:#c9ead6;background:linear-gradient(135deg,#f0faf4 0,#fff 60%)">
+          <div class="ci-h">📜 บ.อ.01 / Certificate (สรรพากร)<span class="tag" style="background:var(--green-soft);color:var(--green)">เรียบร้อย ✅</span></div>
+          <p>INET ยืนยัน 3 ก.ย.: ขึ้นทะเบียน CA + บ.อ.01 ครบแล้ว — legal blocker ปลดล็อก · เหลือเพิ่ม user web portal + ยืนยัน prod cert/key ตอน cutover</p>
+        </div>
+        <div class="crit-item">
+          <div class="ci-h">🔄 SDBAPP → raw sync (i24-data-platform)<span class="tag wait">critical path</span></div>
+          <p>SDBAPP ต้องพร้อมก่อน แล้ว i24-data-platform sync <code>raw.carpro_*</code> ~2 สัปดาห์ → staging พร้อม ~18–19 ก.ย. จึงเริ่มทดสอบ transform/submit กับข้อมูลจริงได้</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="note">
-    <b>Critical path:</b> บ.อ.01 / Certificate (ผ่านสรรพากร · rush ไม่ได้) และ SDBAPP → ETL 2 สัปดาห์ ก่อนเริ่มทดสอบ transform/submit<br>
-    <b>Prereq timeline:</b> SDBAPP พร้อม 31 ส.ค.–4 ก.ย. → ETL 2 สัปดาห์ (~5–18 ก.ย.) → staging พร้อม แล้วจึงเริ่ม SIT/UAT<br>
-    <b>D5 locked:</b> GitHub Actions · ECS Fargate · RDS for SQL Server · Terraform · Secrets Manager<br>
-    <b>หมายเหตุ:</b> i24 ส่งผ่าน INet API v2.2 (ไม่ใช่ sFTP ตาม template INET) — ต้องยืนยัน integration mode กับ INET<br>
-    <b>งานใหม่ (Phase 1):</b> ใบลดหนี้ (OEB 4.4/CDN0402) + payment/footer ยังไม่รองรับในโค้ด — dev ต้องเสร็จก่อน SIT (ดู golive_plan.md §11)
+  <!-- ================= GANTT ================= -->
+  <div class="section">
+    <div class="section-h">
+      <div class="ico">📅</div>
+      <h2>ไทม์ไลน์รายสัปดาห์</h2>
+      <div class="hint">ส.ค. → ต.ค. 2026</div>
+    </div>
+    <div class="card" style="padding:14px">
+      <div class="gantt-scroll">
+        <table class="gantt">
+          <thead>
+            <tr>
+              <th class="no" rowspan="2">#</th>
+              <th class="tk" rowspan="2" style="text-align:left;padding-left:10px">การดำเนินการ</th>
+              <th class="ow" rowspan="2" style="text-align:left">ผู้รับผิดชอบ</th>
+              <th class="mon">ส.ค.</th>
+              <th class="mon" colspan="5">กันยายน</th>
+              <th class="mon" colspan="2">ตุลาคม</th>
+              <th rowspan="2" style="padding:0 10px">สถานะ</th>
+            </tr>
+            <tr>
+              <th class="wk">24–30</th>
+              <th class="wk">31–6</th>
+              <th class="wk">7–13</th>
+              <th class="wk">14–20</th>
+              <th class="wk">21–27</th>
+              <th class="wk">28–4</th>
+              <th class="wk">5–11</th>
+              <th class="wk">12–16</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:linear-gradient(180deg,#3b82f6,#2563eb)"></i> งานปกติ</span>
+        <span><i class="sw" style="background:linear-gradient(180deg,#34d399,#0f9d63)"></i> เสร็จแล้ว</span>
+        <span><i class="sw" style="background:linear-gradient(180deg,#fb7185,#e11d48)"></i> Critical path</span>
+        <span><i class="sw" style="background:linear-gradient(180deg,#fbbf24,#e08600)"></i> Go-Live</span>
+        <span>◆ = milestone</span>
+      </div>
+    </div>
   </div>
 
-  <footer>Powered by i24 · อ้างอิง: plan_timeline.md (§1b) · Last updated 27 ส.ค. 2026</footer>
+  <!-- ================= WORKSTREAM TRACKER ================= -->
+  <div class="section">
+    <div class="section-h">
+      <div class="ico">📊</div>
+      <h2>ความคืบหน้ารายงาน (Workstream tracker)</h2>
+      <div class="hint">คลิกกรองตามสถานะได้</div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="ws-grid" id="prows"></div>
+  </div>
+
+  <!-- ================= MILESTONES ================= -->
+  <div class="section">
+    <div class="section-h">
+      <div class="ico">🏁</div>
+      <h2>Milestones สำคัญ</h2>
+    </div>
+    <div class="card">
+      <div class="ms-line" id="milestones"></div>
+    </div>
+  </div>
+
+  <!-- ================= NOTES / RISKS ================= -->
+  <div class="section">
+    <div class="grid-2">
+      <div class="card info-card">
+        <h3>🔑 Key facts (sync จากโค้ดจริง)</h3>
+        <ul>
+          <li><b>ใบลดหนี้ (CN)</b> = มี <code>APPLY_TO_INVOICE_NO</code> AND <code>INVOICE_AMOUNT &lt; 0</code> AND ใบต้นฉบับมีใบกำกับภาษี → <code>81</code></li>
+          <li><b>Doc type</b>: amount ≥ 0 + มี <code>tit</code> → <code>T03</code> · amount ≥ 0 ไม่มี <code>tit</code> → บล็อก · amount &lt; 0 ไม่เข้าเกณฑ์ CN → บล็อก+guard</li>
+          <li><b>F34 payment</b> จาก <code>CASH_TRANSACTIONS</code> (via <code>tit.RECEIPT</code>) + <code>CREDIT_CARDS</code> · mask 4 หลักท้าย · คั่น <code>" | "</code> Title Case (10 ก.ย.)</li>
+          <li><b>F68 WHT</b> = Σ(DEBIT−CREDIT) จาก <code>ACCOUNT_TRANS</code> (<code>ACCOUNT_NAME='WHT'</code>)</li>
+          <li><b>F70</b> = <code>Agreement No.:</code> เสมอ · ใบลดหนี้ต่อ <code>Reason: {credit_note_reason}</code> (<code>REMARKS.RMK_REMARK</code>) · ต่อท้าย F34 · ไม่ใช้ <code>agreement_remark</code></li>
+          <li><b>Raw tables</b> = 14 ตาราง · <code>i24-data-platform</code> sync (repo แยก แทน DCOE/ADF)</li>
+        </ul>
+      </div>
+      <div class="card info-card">
+        <h3>⚠️ ความเสี่ยง & งานค้าง (ไม่บล็อก go-live)</h3>
+        <ul>
+          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>บ.อ.01</b> — เรียบร้อยแล้ว 3 ก.ย. (เดิมเป็น legal blocker)</li>
+          <li><span class="chip amber">RISK</span><b>SDBAPP ไม่พร้อม</b> 4 ก.ย. → เลื่อนทั้ง chain · ล็อกวันกับ infra</li>
+          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>SIT</b> — ผ่าน 100% (15 ก.ย.)</li>
+          <li><span class="chip amber">UAT 22 ก.ย.</span><b>กำหนดแล้ว</b> · data พร้อม (11 ก.ย.)</li>
+          <li><span class="chip blue">TODO</span><b>ส่วนลด PDF</b> — ปรึกษา INet (L10 vs L27 vs F42) ก่อนใส่ยอดบวกที่บรรทัด</li>
+          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>H2</b> — monitor โชว์ doc type / refer / reason (9 ก.ย.)</li>
+          <li><span class="chip blue">TODO</span><b>A6</b> — footer static text (MVP-B, ไม่บล็อก)</li>
+          <li><b>staging</b> ปัจจุบันล็อก <code>INVOICE_TYPE IN ('D')</code> — path 'H' commented out (dormant)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Powered by i24 <span class="sep">·</span> อ้างอิง <a href="plan_timeline.md">plan_timeline.md</a> · <a href="mvp_scope.md">mvp_scope.md</a> · <a href="pipeline_architecture.md">pipeline_architecture.md</a>
+    <span class="sep">·</span> Last updated 15 ก.ย. 2026
+  </footer>
 </div>
 
 <script>
-// [no, task, owner, startWeek, endWeek, barClass, status]  weeks 1..8 ; status: done|prog|todo ; -1,-1 = no bar
-const data = [
-  [1,"Kickoff + Requirement + Design","i24",0,0,"","done"],
-  [2,"Development (invoice ปกติ type D)","i24",0,0,"","done"],
-  [3,"หา ref/reason/payment fields ใน CarPro","i24+data",1,1,"c","done"],
-  [4,"Dev: ใบลดหนี้ (CDN/81) + refer + reason","i24",2,4,"b","done"],
-  [5,"Dev: payment/credit card + footer text","i24",2,3,"b","prog"],
-  [6,"บ.อ.01 / Certificate (RD register) — BU PENDING","BU+INET",1,7,"c","prog"],
-  [7,"SDBAPP + raw.carpro_* sync (2 wk)","i24-data-agent",2,4,"b","todo"],
+/* ============ COUNTDOWN ============ */
+(function(){
+  const goLive=new Date(2026,9,16); // 16 Oct 2026
+  const now=new Date();
+  const days=Math.max(0,Math.ceil((goLive-now)/86400000));
+  document.getElementById('cd-days').textContent=days;
+})();
+
+/* ============ GANTT ============
+   [no, task, owner, startWeek, endWeek, barClass, status, milestone?]
+   weeks 1..8 ; barClass: b|c|d|g ; status: done|prog|todo|crit */
+const stMap={
+  done:["p-done","เสร็จแล้ว"], prog:["p-prog","กำลังทำ"],
+  todo:["p-todo","ยังไม่เริ่ม"], crit:["p-crit","Critical"]
+};
+const weekends=[]; // no weekend cols in this weekly view
+const data=[
+  [1,"Kickoff + Requirement + Design","i24",1,1,"d","done"],
+  [2,"Development (invoice ปกติ type D → T03)","i24",1,1,"d","done"],
+  [3,"หา ref / reason / payment fields ใน CarPro","i24 + data",1,1,"d","done"],
+  [4,"Dev: ใบลดหนี้ (81) + refer + reason","i24",1,2,"d","done"],
+  [5,"Dev: payment (F34) + WHT (F68) + footer","i24",1,2,"d","done"],
+  [6,"บ.อ.01 / Certificate (RD register)","BU + INET",1,2,"d","done"],
+  [7,"SDBAPP + raw.carpro_* sync (2 wk)","i24-data-platform",2,4,"c","todo"],
   [8,"Infra AWS: RDS → ECS + CI/CD","i24",2,4,"b","todo"],
-  [9,"Deploy SQL schema (inet/staging/registry)","i24",3,3,"b","prog"],
-  [10,"SIT / INet sandbox (ปกติ + ลดหนี้)","i24+INET",5,5,"b","todo"],
-  [11,"UAT + Training web portal","i24+INET",6,6,"b","todo"],
-  [12,"Deployment prod + readiness + freeze","i24",7,8,"b","todo"],
+  [9,"Deploy SQL schema (inet/staging/registry)","i24",3,4,"b","prog"],
+  [10,"SIT / INet sandbox — ผ่าน 100% (15 ก.ย.)","i24 + INET",4,4,"d","done"],
+  [11,"UAT + Training — กำหนด 22 ก.ย.","i24 + INET",5,5,"b","prog"],
+  [12,"Deployment prod + readiness + freeze","i24",6,8,"b","todo"],
   [13,"Go-Live (เปิด cron etax_transform)","i24",8,8,"g","todo"],
 ];
-const stMap={done:["st-done","Completed"],prog:["st-prog","In Progress"],todo:["st-todo","Not Started"],crit:["st-crit","Critical"]};
 const tb=document.getElementById("rows");
 data.forEach(r=>{
   const [no,task,owner,s,e,cls,st]=r;
   let cells="";
   for(let w=1;w<=8;w++){
-    if(no===13 && w===8){ cells+=`<td class="golive-cell">Go Live</td>`; continue; }
-    if(s>0 && w>=s && w<=e){ cells+=`<td class="cell"><span class="bar ${cls}"></span></td>`; }
-    else { cells+=`<td class="cell"></td>`; }
+    const wknd=weekends.includes(w)?" wknd":"";
+    if(no===13 && w===8){ cells+=`<td class="gcell${wknd}"><span class="golive-flag">GO&nbsp;LIVE</span></td>`; continue; }
+    if(s>0 && w>=s && w<=e){
+      const only=(s===e);
+      const roundL=(w===s)?" round-l":"";
+      const label=only?`<span class="dot"></span>`:"";
+      cells+=`<td class="gcell${wknd}"><span class="bar ${cls}${roundL}">${label}</span></td>`;
+    } else {
+      cells+=`<td class="gcell${wknd}"></td>`;
+    }
   }
   const [scls,slabel]=stMap[st];
   tb.insertAdjacentHTML("beforeend",
-    `<tr><td class="no">${no}</td><td class="task">${task}</td><td class="owner">${owner}</td>${cells}<td><span class="badge ${scls}">${slabel}</span></td></tr>`);
+    `<tr><td class="no">${no}</td><td class="tk">${task}</td><td class="ow">${owner}</td>${cells}`+
+    `<td style="padding:0 8px"><span class="pill ${scls}">${slabel}</span></td></tr>`);
 });
 
-// Progress by action (§1b) — [id, action, pct, status, detail]  status: done|prog|todo|crit
-const prog = [
-  ["A","App code — invoice ปกติ (T03)",100,"done","mapper/validator/payload/persist + test เขียว · T03 ต้องมี tit (amount≥0 ไม่มี tit → บล็อก). Next: —"],
-  ["B","App code — ใบลดหนี้ (81)",100,"done","CN = APPLY_TO_INVOICE_NO + ใบต้นฉบับ INV_STATUS=9 · H07/H08/H09 + Original/Different · ยอดลบไม่เข้าเกณฑ์ → บล็อก+guard. Next: ยืนยันเคส 23 ใบ CN ยอด≥0"],
-  ["C","INet payload — JSON method (etaxsigndocumentjson)",100,"done","เปลี่ยน CSV→JSON keyed object · F-code generic (F38/F46/F48/F50) · phone +66- · H05/H06 CN · UAT OK 27 ส.ค. (PDF/XML). Next: ทดสอบ CN (81) จริง"],
-  ["D","Vehicle detail + payment source",100,"done","vehicle: RESERVATION→CARSALE_OVERRIDE_LOG(ล่าสุด)→CAR_TECHNICAL · F34 payment: CASH_TRANSACTIONS (RECEIPT), PAYMENT RECEIVED=tax_inv_date. Next: —"],
-  ["E","SQL schema/staging (raw→staging→inet)",90,"prog","scripts เขียน+deploy local + reconcile 100% · 12→14 raw tables · guarded ALTER vat_amount/allowance_amount. Next: deploy ลำดับเดิมบน preprod (M4)"],
-  ["F","Admin UI (search/mapping/monitor)",90,"prog","search + document-style mapping preview (bahtText, vehicle, F34, reconcile/unknown-element guard). Next: H2 monitor โชว์ doc type/refer/reason ให้ครบ"],
-  ["G","Certificate / บ.อ.01 (สรรพากร)",20,"prog","BU PENDING (กำลังดำเนินการ) — long-lead critical path · owner=BU+INET · 5 เอกสาร → INET ขอ CA → ลงทะเบียน บ.อ.01. Next: BU ส่งเอกสารครบให้ INET → M1"],
-  ["H","INET coordination (JSON method/SIT/UAT)",50,"prog","ยืนยันแล้ว: JSON method (etaxsigndocumentjson) ✅ · UAT OK ✅ · ServiceCode=S03. Next: จอง slot SIT/UAT formal + prod endpoint/key"],
-  ["I","SDBAPP (prereq)",0,"todo","ต้องพร้อม 31 ส.ค.–4 ก.ย. ก่อน ETL. Next: ล็อกวันกับทีม infra"],
-  ["J","raw.carpro_* sync — i24-data-agent (2 สัปดาห์)",0,"todo","i24-data-agent (repo แยก แทน DCOE) sync CarPro → raw รายวัน หลัง SDBAPP (local dev มี clone ทดสอบแล้ว). Next: เริ่มหลัง SDBAPP → staging พร้อม ~18–19 ก.ย."],
-  ["K","AWS infra (RDS→ECS/Terraform/CI-CD)",0,"todo","RDS ก่อน → ECS api/worker/cron + pipeline (build CSS→build→test→migration gate). Next: AWS baseline (VPC/IAM/OIDC) W1"],
-  ["L","SIT — INet sandbox",0,"todo","sample 3 เคส (TH / FOREIGN+ISO2 / FOREIGN บล็อก). Next: หลัง staging มีข้อมูล (M4)"],
-  ["M","UAT + Training",0,"todo","UAT admin + training web portal INET. Next: หลัง SIT ผ่าน (M6)"],
-  ["N","Production cutover + day-1 watch",0,"todo","เปิด cron etax_transform prod + เฝ้า failed/submit_status. Next: M8 (16 ต.ค.)"],
+/* ============ WORKSTREAM TRACKER ============
+   [id, action, pct, status, detail, next] */
+const prog=[
+  ["A","App code — invoice ปกติ (T03)",100,"done",
+    "mapper/validator/payload/persist + test เขียว · T03 ต้องมี <code>tit</code> (amount ≥ 0 ไม่มี tit → บล็อก).","—"],
+  ["B","App code — ใบลดหนี้ (81)",100,"done",
+    "CN = <code>APPLY_TO_INVOICE_NO</code> + <code>INVOICE_AMOUNT&lt;0</code> + ใบต้นฉบับมีใบกำกับภาษี · H07/H08/H09 + Original/Different · ยอดลบไม่เข้าเกณฑ์ → บล็อก+guard · <b>ส่งจริงสำเร็จ 3 ก.ย. (ใบ 1800000587)</b>.","ยืนยันเคส CN ยอด≥0 กับธุรกิจ"],
+  ["C","INet payload — JSON method (etaxsigndocumentjson)",100,"done",
+    "CSV → JSON keyed object · F-code generic (F38/F46/F48/F50) · phone <code>+66-</code> · H05/H06 CN · <b>UAT OK 27 ส.ค.</b> (PDF/XML) · <b>CN(81) ส่งจริงสำเร็จ 3 ก.ย. (ใบ 1800000587)</b> หลังแก้ ER002 (sign บวก ทั้ง line + footer, H07-H09).","เก็บ sample CN เพิ่ม + TH domestic"],
+  ["D","Vehicle detail + payment source (F34)",100,"done",
+    "vehicle: AGREEMENT_NO → CARSALE_OVERRIDE_LOG (ล่าสุด) → CAR_TECHNICAL · F34 จาก <code>CASH_TRANSACTIONS</code> (RECEIPT) + CREDIT_CARDS · 10 ก.ย. คั่น <code>\" | \"</code> Title Case.","—"],
+  ["E","SQL schema/staging (raw → staging → inet)",90,"prog",
+    "scripts เขียน + deploy local + reconcile 100% · 14 raw tables · guarded ALTER vat_amount/allowance_amount.","deploy ลำดับเดิมบน preprod (M4)"],
+  ["F","Admin UI (search / mapping / monitor)",100,"done",
+    "หน้าจอเจ้าหน้าที่เสร็จ: search / mapping preview / inet-documents monitor (doc type, refer, reason, error).","ใช้ใน UAT 22 ก.ย."],
+  ["G","Certificate / บ.อ.01 (สรรพากร)",100,"done",
+    "<b>เรียบร้อยแล้ว — INET ยืนยัน 3 ก.ย.</b>: ขึ้นทะเบียน CA + บ.อ.01 ครบ · legal blocker ปลดล็อก.","เพิ่ม user web portal + ยืนยัน prod cert/key ตอน cutover"],
+  ["H","INET coordination (JSON method / SIT / UAT)",85,"prog",
+    "JSON method ✅ · UAT T03 OK ✅ · CN(81) ส่งผ่านจริง ✅ · <b>SIT ผ่าน 100% (15 ก.ย.)</b> · <b>data UAT พร้อมแล้ว</b>.","UAT 22 ก.ย. · ปรึกษา INet เรื่องส่วนลด PDF"],
+  ["I","SDBAPP (prereq)",0,"todo",
+    "ต้องพร้อม 31 ส.ค.–4 ก.ย. ก่อน raw sync.","ล็อกวันกับทีม infra"],
+  ["J","raw.carpro_* sync — i24-data-platform (2 สัปดาห์)",0,"todo",
+    "i24-data-platform (repo แยก แทน DCOE) sync CarPro → raw รายวัน หลัง SDBAPP (local dev มี clone).","เริ่มหลัง SDBAPP → staging ~18–19 ก.ย."],
+  ["K","AWS infra (RDS → ECS / Terraform / CI-CD)",0,"todo",
+    "RDS ก่อน → ECS api/worker/cron + pipeline (build CSS → build → test → migration gate).","AWS baseline (VPC/IAM/OIDC) W1"],
+  ["L","SIT — INet sandbox",100,"done",
+    "<b>ผ่าน 100% (15 ก.ย.)</b> · catalog July + samples · T03 + CN(81) ส่งผ่าน INET แล้ว.","—"],
+  ["M","UAT + Training",20,"prog",
+    "<b>data UAT พร้อมแล้ว (11 ก.ย.)</b> · หน้าจอเจ้าหน้าที่เสร็จ · <b>กำหนด UAT 22 ก.ย.</b>.","รัน UAT 22 ก.ย. (M6)"],
+  ["N","Production cutover + day-1 watch",0,"todo",
+    "เปิด cron etax_transform prod + เฝ้า failed / submit_status.","M8 (16 ต.ค.)"],
 ];
 const pb=document.getElementById("prows");
-prog.forEach(r=>{
-  const [id,action,pct,st,detail]=r;
-  const [scls,slabel]=stMap[st];
-  pb.insertAdjacentHTML("beforeend",
-    `<tr><td class="no">${id}</td><td class="task">${action}</td>`+
-    `<td class="pcell"><div class="pbar-track"><span class="pbar-fill ${st}" style="width:${pct}%"></span></div></td>`+
-    `<td class="pct">${pct}%</td>`+
-    `<td><span class="badge ${scls}">${slabel}</span></td>`+
-    `<td class="detail">${detail}</td></tr>`);
+function renderWS(filter){
+  pb.innerHTML="";
+  prog.filter(r=>filter==="all"||r[3]===filter).forEach(r=>{
+    const [id,action,pct,st,detail,next]=r;
+    const [scls,slabel]=stMap[st];
+    pb.insertAdjacentHTML("beforeend",
+      `<div class="ws st-${st}">
+         <div class="ws-top">
+           <div class="ws-id">${id}</div>
+           <div class="ws-title">${action}</div>
+         </div>
+         <div class="ws-meta">
+           <span class="pill ${scls}">${slabel}</span>
+           <span class="ws-pct">${pct}%</span>
+         </div>
+         <div class="ws-bar"><div class="ws-fill ${st}" style="width:${pct}%"></div></div>
+         <div class="ws-detail">${detail}</div>
+         <div class="ws-next">👉 Next: <b>${next}</b></div>
+       </div>`);
+  });
+}
+/* filter buttons */
+const counts={all:prog.length,done:0,prog:0,todo:0,crit:0};
+prog.forEach(r=>counts[r[3]]++);
+const fLabels={all:"ทั้งหมด",done:"เสร็จแล้ว",prog:"กำลังทำ",todo:"ยังไม่เริ่ม",crit:"Critical"};
+const fbox=document.getElementById("filters");
+["all","done","prog","todo","crit"].forEach((k,i)=>{
+  if(k!=="all"&&counts[k]===0)return;
+  fbox.insertAdjacentHTML("beforeend",
+    `<button class="fbtn${i===0?' active':''}" data-f="${k}">${fLabels[k]}<span class="cnt">${counts[k]}</span></button>`);
+});
+fbox.addEventListener("click",e=>{
+  const b=e.target.closest(".fbtn"); if(!b)return;
+  fbox.querySelectorAll(".fbtn").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active"); renderWS(b.dataset.f);
+});
+renderWS("all");
+
+/* ============ MILESTONES ============ */
+const ms=[
+  ["24 ส.ค.","M0","D5 deploy decisions locked","use recommendations","done"],
+  ["3 ก.ย.","M1","บ.อ.01 + CA ขึ้นทะเบียนครบ","INET ยืนยันเรียบร้อย","done"],
+  ["5 ก.ย.","M2","SDBAPP + RDS พร้อม","connect ได้","next"],
+  ["18 ก.ย.","M3","ETL raw.carpro_* โหลดครบ","staging.vw_carpro_* มีข้อมูล",""],
+  ["19 ก.ย.","M4","App deploy preprod (ECS) + schema","/healthz + /readyz เขียว",""],
+  ["15 ก.ย.","M5","SIT — INet sandbox ผ่าน","ผ่าน 100%","done"],
+  ["22 ก.ย.","M6","UAT + Training","เริ่ม UAT · ไม่มี P0 bug","next"],
+  ["10 ต.ค.","M7","Readiness review + freeze","checklist ครบ (บ.อ.01 ✅ แล้ว)",""],
+  ["16 ต.ค.","M8","Go-Live — เปิด cron etax_transform","ส่งใบจริง + เฝ้า day-1","golive"],
+];
+const mb=document.getElementById("milestones");
+ms.forEach(m=>{
+  const [date,id,title,gate,cls]=m;
+  const flag=cls==="golive"?" 🚀":"";
+  mb.insertAdjacentHTML("beforeend",
+    `<div class="ms ${cls}">
+       <div class="ms-date">${date}<span class="mid">${id}</span></div>
+       <div class="ms-node"><span class="d"></span></div>
+       <div class="ms-body"><div class="mt">${title}${flag}</div><div class="mg">Gate: ${gate}</div></div>
+     </div>`);
 });
 </script>
 </body>
