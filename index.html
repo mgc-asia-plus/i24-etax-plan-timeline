@@ -214,12 +214,12 @@
       <div>
         <span class="kicker">Module B · Go-Live Plan</span>
         <h1>E-Tax — CarPro → INet</h1>
-        <p class="flow">แปลงใบแจ้งหนี้ <code>staging</code> → <code>inet.*</code> → ส่งขึ้น <code>INet</code> · ปรับจาก INET Action Plan มาเป็นฝั่ง i24</p>
+        <p class="flow">ดึงใบจาก <code>carpro-live</code> (CarPro Web integration) → <code>inet.*</code> → ส่งขึ้น <code>INet</code> · ปรับจาก INET Action Plan มาเป็นฝั่ง i24</p>
       </div>
       <div class="countdown">
         <div class="big" id="cd-days">—</div>
         <div class="lbl">วันเหลือถึง Go-Live</div>
-        <div class="date">16 ต.ค. 2026 · ศุกร์</div>
+        <div class="date">5 ต.ค. 2026 · จันทร์</div>
       </div>
     </div>
 
@@ -232,19 +232,19 @@
         </div>
       </div>
       <div class="kpi ops">
-        <div class="ring" style="--p:45;--c:var(--amber)"><span>45%</span></div>
+        <div class="ring" style="--p:75;--c:var(--amber)"><span>75%</span></div>
         <div>
           <div class="kt">🏛️ Ops / Infra / Legal (G–N)</div>
-          <div class="kv">ตัวกำหนดจริง <small>· SIT ผ่าน · UAT 22 ก.ย.</small></div>
+          <div class="kv">ตัวกำหนดจริง <small>· SIT ✅ · UAT ✅ · เหลือ prod</small></div>
         </div>
       </div>
       <div class="kpi">
         <div class="kt">🚦 Critical path</div>
-        <div class="kv" style="font-size:15px;line-height:1.3">UAT 22 ก.ย. + SDBAPP<br><small style="font-weight:600;color:var(--green)">SIT ผ่าน 100% ✅</small></div>
+        <div class="kv" style="font-size:15px;line-height:1.3">env prod + deploy 3–4 ต.ค.<br><small style="font-weight:600;color:var(--amber)">INet prod key · CARPRO_WEB_COOKIE</small></div>
       </div>
       <div class="kpi">
-        <div class="kt">🎉 ล่าสุด (15 ก.ย.)</div>
-        <div class="kv" style="font-size:15px">SIT 100%<br><small style="font-weight:600;color:var(--green)">UAT 22 ก.ย.</small></div>
+        <div class="kt">🎉 ล่าสุด (27 ก.ย.)</div>
+        <div class="kv" style="font-size:15px">UAT ✅ 22 ก.ย.<br><small style="font-weight:600;color:var(--green)">เปลี่ยนเป็น CarPro Web</small></div>
       </div>
     </div>
   </div>
@@ -254,18 +254,18 @@
     <div class="section-h">
       <div class="ico">🚦</div>
       <h2>Critical Path — อะไรกำหนดวัน Go-Live</h2>
-      <div class="hint">โค้ดพร้อมแล้ว · รอ 2 เรื่องนี้เป็นหลัก</div>
+      <div class="hint">โค้ด + SIT + UAT พร้อม · เหลือเตรียม prod</div>
     </div>
     <div class="crit-banner">
-      <h3>✅ บ.อ.01 ปลดล็อกแล้ว — เหลือ 1 งาน long-lead เป็น critical path</h3>
+      <h3>✅ เปลี่ยนเป็น CarPro Web integration — SDBAPP raw sync ไม่บล็อกแล้ว (ย้ายเป็น Phase 2)</h3>
       <div class="crit-list">
-        <div class="crit-item" style="border-color:#c9ead6;background:linear-gradient(135deg,#f0faf4 0,#fff 60%)">
-          <div class="ci-h">📜 บ.อ.01 / Certificate (สรรพากร)<span class="tag" style="background:var(--green-soft);color:var(--green)">เรียบร้อย ✅</span></div>
-          <p>INET ยืนยัน 3 ก.ย.: ขึ้นทะเบียน CA + บ.อ.01 ครบแล้ว — legal blocker ปลดล็อก · เหลือเพิ่ม user web portal + ยืนยัน prod cert/key ตอน cutover</p>
+        <div class="crit-item">
+          <div class="ci-h">🔑 Env prod: INet prod + CARPRO_WEB_COOKIE<span class="tag pending">ภายใน 2 ต.ค.</span></div>
+          <p>ขอ INet prod endpoint/key/cert · เตรียม session cookie ของ user บริการ carpro-live แล้วลอง <code>/e-tax/mapping</code> preview จาก host prod ให้ผ่าน</p>
         </div>
         <div class="crit-item">
-          <div class="ci-h">🔄 SDBAPP → raw sync (i24-data-platform)<span class="tag wait">critical path</span></div>
-          <p>SDBAPP ต้องพร้อมก่อน แล้ว i24-data-platform sync <code>raw.carpro_*</code> ~2 สัปดาห์ → staging พร้อม ~18–19 ก.ย. จึงเริ่มทดสอบ transform/submit กับข้อมูลจริงได้</p>
+          <div class="ci-h">🖥️ Deploy prod (Windows WinSW + nginx)<span class="tag pending">3–4 ต.ค.</span></div>
+          <p>แบบเดียวกับ UAT · DB <code>inet.*</code> + registry · smoke + dry-run <code>carpro_web</code> 1 batch → 5 ต.ค. เปิด job scheduler <code>etax_transform</code></p>
         </div>
       </div>
     </div>
@@ -297,9 +297,9 @@
               <th class="wk">7–13</th>
               <th class="wk">14–20</th>
               <th class="wk">21–27</th>
-              <th class="wk">28–4</th>
-              <th class="wk">5–11</th>
-              <th class="wk">12–16</th>
+              <th class="wk">28–2</th>
+              <th class="wk">3–4</th>
+              <th class="wk">5</th>
             </tr>
           </thead>
           <tbody id="rows"></tbody>
@@ -348,20 +348,20 @@
           <li><b>F34 payment</b> จาก <code>CASH_TRANSACTIONS</code> (via <code>tit.RECEIPT</code>) + <code>CREDIT_CARDS</code> · mask 4 หลักท้าย · คั่น <code>" | "</code> Title Case (10 ก.ย.)</li>
           <li><b>F68 WHT</b> = Σ(DEBIT−CREDIT) จาก <code>ACCOUNT_TRANS</code> (<code>ACCOUNT_NAME='WHT'</code>)</li>
           <li><b>F70</b> = <code>Agreement No.:</code> เสมอ · ใบลดหนี้ต่อ <code>Reason: {credit_note_reason}</code> (<code>REMARKS.RMK_REMARK</code>) · ต่อท้าย F34 · ไม่ใช้ <code>agreement_remark</code></li>
-          <li><b>Raw tables</b> = 14 ตาราง · <code>i24-data-platform</code> sync (repo แยก แทน DCOE/ADF)</li>
+          <li><b>ต้นทาง Phase 1</b> = <code>carpro_web</code>: invoice list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (หา H07 ของ 81) · env <code>CARPRO_WEB_COOKIE</code></li>
+          <li><b>Job</b> = <code>/e-tax/job-scheduler</code> 12:00 / 18:00 / 23:00 · batch = <code>force_resubmit</code> ก่อน แล้วใบวันนี้จาก carpro-live</li>
+          <li><b>Raw/staging</b> (<code>i24-data-platform</code>) → Phase 2 · intake staging ถูกปิดในโค้ด</li>
         </ul>
       </div>
       <div class="card info-card">
-        <h3>⚠️ ความเสี่ยง & งานค้าง (ไม่บล็อก go-live)</h3>
+        <h3>⚠️ ความเสี่ยง & งานค้าง</h3>
         <ul>
-          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>บ.อ.01</b> — เรียบร้อยแล้ว 3 ก.ย. (เดิมเป็น legal blocker)</li>
-          <li><span class="chip amber">RISK</span><b>SDBAPP ไม่พร้อม</b> 4 ก.ย. → เลื่อนทั้ง chain · ล็อกวันกับ infra</li>
-          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>SIT</b> — ผ่าน 100% (15 ก.ย.)</li>
-          <li><span class="chip amber">UAT 22 ก.ย.</span><b>กำหนดแล้ว</b> · data พร้อม (11 ก.ย.)</li>
-          <li><span class="chip blue">TODO</span><b>ส่วนลด PDF</b> — ปรึกษา INet (L10 vs L27 vs F42) ก่อนใส่ยอดบวกที่บรรทัด</li>
-          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>H2</b> — monitor โชว์ doc type / refer / reason (9 ก.ย.)</li>
+          <li><span class="chip red">RISK</span><b>CARPRO_WEB_COOKIE หมดอายุ</b> → ทั้ง batch fail · ใช้ user บริการ + เช็ค preview ทุกเช้า · ต่อ cookie แล้ว Re-Sync</li>
+          <li><span class="chip amber">RISK</span><b>carpro-live ล่ม / layout PDF เปลี่ยน</b> → validator บล็อกก่อนส่ง · error ต่อใบโชว์ admin</li>
+          <li><span class="chip amber">RISK</span><b>Timeline สั้น</b> — INet prod key / cookie ไม่ทัน 2 ต.ค. → เลื่อน go-live (ไม่เปิดโดยไม่มี dry-run prod)</li>
+          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>SDBAPP raw sync</b> — ไม่อยู่บน critical path (ใช้ CarPro Web) → Phase 2</li>
+          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>บ.อ.01</b> 3 ก.ย. · <b>SIT</b> 15 ก.ย. · <b>UAT</b> 22 ก.ย.</li>
           <li><span class="chip blue">TODO</span><b>A6</b> — footer static text (MVP-B, ไม่บล็อก)</li>
-          <li><b>staging</b> ปัจจุบันล็อก <code>INVOICE_TYPE IN ('D')</code> — path 'H' commented out (dormant)</li>
         </ul>
       </div>
     </div>
@@ -369,14 +369,14 @@
 
   <footer>
     Powered by i24 <span class="sep">·</span> อ้างอิง <a href="plan_timeline.md">plan_timeline.md</a> · <a href="mvp_scope.md">mvp_scope.md</a> · <a href="pipeline_architecture.md">pipeline_architecture.md</a>
-    <span class="sep">·</span> Last updated 15 ก.ย. 2026
+    <span class="sep">·</span> Last updated 27 ก.ย. 2026
   </footer>
 </div>
 
 <script>
 /* ============ COUNTDOWN ============ */
 (function(){
-  const goLive=new Date(2026,9,16); // 16 Oct 2026
+  const goLive=new Date(2026,9,5); // 5 Oct 2026
   const now=new Date();
   const days=Math.max(0,Math.ceil((goLive-now)/86400000));
   document.getElementById('cd-days').textContent=days;
@@ -397,13 +397,13 @@ const data=[
   [4,"Dev: ใบลดหนี้ (81) + refer + reason","i24",1,2,"d","done"],
   [5,"Dev: payment (F34) + WHT (F68) + footer","i24",1,2,"d","done"],
   [6,"บ.อ.01 / Certificate (RD register)","BU + INET",1,2,"d","done"],
-  [7,"SDBAPP + raw.carpro_* sync (2 wk)","i24-data-platform",2,4,"c","todo"],
-  [8,"Infra AWS: RDS → ECS + CI/CD","i24",2,4,"b","todo"],
-  [9,"Deploy SQL schema (inet/staging/registry)","i24",3,4,"b","prog"],
-  [10,"SIT / INet sandbox — ผ่าน 100% (15 ก.ย.)","i24 + INET",4,4,"d","done"],
-  [11,"UAT + Training — กำหนด 22 ก.ย.","i24 + INET",5,5,"b","prog"],
-  [12,"Deployment prod + readiness + freeze","i24",6,8,"b","todo"],
-  [13,"Go-Live (เปิด cron etax_transform)","i24",8,8,"g","todo"],
+  [7,"CarPro Web integration (carpro_web)","i24",4,5,"d","done"],
+  [8,"SIT / INet sandbox — ผ่าน 100% (15 ก.ย.)","i24 + INET",4,4,"d","done"],
+  [9,"UAT + Training — 22 ก.ย. ✅","i24 + INET",5,5,"d","done"],
+  [10,"Env prod: INet prod key + CARPRO_WEB_COOKIE","i24 + INET",6,6,"c","crit"],
+  [11,"Readiness review + code freeze (2 ต.ค.)","i24",6,6,"c","crit"],
+  [12,"Deploy prod (WinSW + nginx) + dry-run","i24",7,7,"b","todo"],
+  [13,"Go-Live (เปิด job scheduler etax_transform)","i24",8,8,"g","todo"],
 ];
 const tb=document.getElementById("rows");
 data.forEach(r=>{
@@ -438,26 +438,26 @@ const prog=[
     "CSV → JSON keyed object · F-code generic (F38/F46/F48/F50) · phone <code>+66-</code> · H05/H06 CN · <b>UAT OK 27 ส.ค.</b> (PDF/XML) · <b>CN(81) ส่งจริงสำเร็จ 3 ก.ย. (ใบ 1800000587)</b> หลังแก้ ER002 (sign บวก ทั้ง line + footer, H07-H09).","เก็บ sample CN เพิ่ม + TH domestic"],
   ["D","Vehicle detail + payment source (F34)",100,"done",
     "vehicle: AGREEMENT_NO → CARSALE_OVERRIDE_LOG (ล่าสุด) → CAR_TECHNICAL · F34 จาก <code>CASH_TRANSACTIONS</code> (RECEIPT) + CREDIT_CARDS · 10 ก.ย. คั่น <code>\" | \"</code> Title Case.","—"],
-  ["E","SQL schema/staging (raw → staging → inet)",90,"prog",
-    "scripts เขียน + deploy local + reconcile 100% · 14 raw tables · guarded ALTER vat_amount/allowance_amount.","deploy ลำดับเดิมบน preprod (M4)"],
+  ["E","SQL schema (inet.* + registry + pipeline log)",90,"prog",
+    "Phase 1 ใช้แค่ <code>03_inet_schema</code> → <code>04_etax_source_registry</code> → <code>02_pipeline_log</code> · raw/staging เก็บไว้ Phase 2.","deploy บน prod DB 3 ต.ค."],
   ["F","Admin UI (search / mapping / monitor)",100,"done",
-    "หน้าจอเจ้าหน้าที่เสร็จ: search / mapping preview / inet-documents monitor (doc type, refer, reason, error).","ใช้ใน UAT 22 ก.ย."],
+    "หน้าจอเจ้าหน้าที่เสร็จ: search / mapping preview / inet-documents monitor / branch / error remediation / job scheduler / users.","—"],
   ["G","Certificate / บ.อ.01 (สรรพากร)",100,"done",
-    "<b>เรียบร้อยแล้ว — INET ยืนยัน 3 ก.ย.</b>: ขึ้นทะเบียน CA + บ.อ.01 ครบ · legal blocker ปลดล็อก.","เพิ่ม user web portal + ยืนยัน prod cert/key ตอน cutover"],
-  ["H","INET coordination (JSON method / SIT / UAT)",85,"prog",
-    "JSON method ✅ · UAT T03 OK ✅ · CN(81) ส่งผ่านจริง ✅ · <b>SIT ผ่าน 100% (15 ก.ย.)</b> · <b>data UAT พร้อมแล้ว</b>.","UAT 22 ก.ย. · ปรึกษา INet เรื่องส่วนลด PDF"],
-  ["I","SDBAPP (prereq)",0,"todo",
-    "ต้องพร้อม 31 ส.ค.–4 ก.ย. ก่อน raw sync.","ล็อกวันกับทีม infra"],
-  ["J","raw.carpro_* sync — i24-data-platform (2 สัปดาห์)",0,"todo",
-    "i24-data-platform (repo แยก แทน DCOE) sync CarPro → raw รายวัน หลัง SDBAPP (local dev มี clone).","เริ่มหลัง SDBAPP → staging ~18–19 ก.ย."],
-  ["K","AWS infra (RDS → ECS / Terraform / CI-CD)",0,"todo",
-    "RDS ก่อน → ECS api/worker/cron + pipeline (build CSS → build → test → migration gate).","AWS baseline (VPC/IAM/OIDC) W1"],
+    "<b>เรียบร้อยแล้ว — INET ยืนยัน 3 ก.ย.</b>: ขึ้นทะเบียน CA + บ.อ.01 ครบ · legal blocker ปลดล็อก.","ยืนยัน prod cert/key ตอน cutover"],
+  ["H","INET coordination (JSON method / SIT / UAT)",90,"prog",
+    "JSON method ✅ · CN(81) ส่งผ่านจริง ✅ · <b>SIT ผ่าน 100% (15 ก.ย.)</b> · <b>UAT 22 ก.ย. ✅</b>.","ขอ INet prod endpoint/key ก่อน 2 ต.ค."],
+  ["I","CarPro Web integration (carpro_web)",90,"crit",
+    "list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (H07 ของ 81) · transform/preview/Re-Sync/job scheduler บังคับ <code>carpro_web</code>.","CARPRO_WEB_COOKIE prod + dry-run บน prod 3–4 ต.ค."],
+  ["J","raw.carpro_* sync + staging (i24-data-platform)",0,"todo",
+    "<b>ย้ายเป็น Phase 2</b> — ไม่บล็อก go-live แล้ว (Phase 1 ดึงจาก carpro-live ตรง).","Phase 2"],
+  ["K","Infra prod (Windows WinSW + nginx)",30,"crit",
+    "แบบเดียวกับ UAT (<code>C:\\Applications\\i24-etax-service</code>, api + worker-1/2 + cron) · AWS ECS → Phase 2.","เตรียม host + cmd/.env prod ภายใน 2 ต.ค."],
   ["L","SIT — INet sandbox",100,"done",
     "<b>ผ่าน 100% (15 ก.ย.)</b> · catalog July + samples · T03 + CN(81) ส่งผ่าน INET แล้ว.","—"],
-  ["M","UAT + Training",20,"prog",
-    "<b>data UAT พร้อมแล้ว (11 ก.ย.)</b> · หน้าจอเจ้าหน้าที่เสร็จ · <b>กำหนด UAT 22 ก.ย.</b>.","รัน UAT 22 ก.ย. (M6)"],
+  ["M","UAT + Training",100,"done",
+    "<b>รันแล้ว 22 ก.ย.</b> · UAT Sign-Off FM-I24-IT-019.","แก้ P1 ที่เหลือก่อน freeze 2 ต.ค."],
   ["N","Production cutover + day-1 watch",0,"todo",
-    "เปิด cron etax_transform prod + เฝ้า failed / submit_status.","M8 (16 ต.ค.)"],
+    "เปิด job scheduler etax_transform (carpro_web) prod + เฝ้า failed / submit_status.","M8 (5 ต.ค.)"],
 ];
 const pb=document.getElementById("prows");
 function renderWS(filter){
@@ -502,13 +502,12 @@ renderWS("all");
 const ms=[
   ["24 ส.ค.","M0","D5 deploy decisions locked","use recommendations","done"],
   ["3 ก.ย.","M1","บ.อ.01 + CA ขึ้นทะเบียนครบ","INET ยืนยันเรียบร้อย","done"],
-  ["5 ก.ย.","M2","SDBAPP + RDS พร้อม","connect ได้","next"],
-  ["18 ก.ย.","M3","ETL raw.carpro_* โหลดครบ","staging.vw_carpro_* มีข้อมูล",""],
-  ["19 ก.ย.","M4","App deploy preprod (ECS) + schema","/healthz + /readyz เขียว",""],
   ["15 ก.ย.","M5","SIT — INet sandbox ผ่าน","ผ่าน 100%","done"],
-  ["22 ก.ย.","M6","UAT + Training","เริ่ม UAT · ไม่มี P0 bug","next"],
-  ["10 ต.ค.","M7","Readiness review + freeze","checklist ครบ (บ.อ.01 ✅ แล้ว)",""],
-  ["16 ต.ค.","M8","Go-Live — เปิด cron etax_transform","ส่งใบจริง + เฝ้า day-1","golive"],
+  ["22 ก.ย.","M3b","CarPro Web integration ใช้ใน UAT","transform/preview/Re-Sync ผ่าน carpro_web","done"],
+  ["22 ก.ย.","M6","UAT + Training","UAT Sign-Off FM-I24-IT-019","done"],
+  ["2 ต.ค.","M7","Readiness review + env prod + freeze","INet prod key + CARPRO_WEB_COOKIE + checklist ครบ","next"],
+  ["3–4 ต.ค.","M7b","Deploy prod + smoke + dry-run","/healthz เขียว · dry-run carpro_web ผ่าน",""],
+  ["5 ต.ค.","M8","Go-Live — เปิด job scheduler etax_transform","ส่งใบจริง + เฝ้า day-1","golive"],
 ];
 const mb=document.getElementById("milestones");
 ms.forEach(m=>{
