@@ -218,8 +218,9 @@
       </div>
       <div class="countdown">
         <div class="big" id="cd-days">—</div>
-        <div class="lbl">วันเหลือถึง Go-Live</div>
+        <div class="lbl">วันเหลือถึง Go-Live Data Warehouse</div>
         <div class="date">5 ต.ค. 2026 · จันทร์</div>
+        <div class="date" style="border-top:0;margin-top:2px;padding-top:0;font-weight:500">E-Tax One (MCR) · 1 ต.ค.</div>
       </div>
     </div>
 
@@ -232,19 +233,19 @@
         </div>
       </div>
       <div class="kpi ops">
-        <div class="ring" style="--p:75;--c:var(--amber)"><span>75%</span></div>
+        <div class="ring" style="--p:70;--c:var(--amber)"><span>70%</span></div>
         <div>
-          <div class="kt">🏛️ Ops / Infra / Legal (G–N)</div>
+          <div class="kt">🏛️ Ops / Infra / Legal (G–O)</div>
           <div class="kv">ตัวกำหนดจริง <small>· SIT ✅ · UAT ✅ · เหลือ prod</small></div>
         </div>
       </div>
       <div class="kpi">
         <div class="kt">🚦 Critical path</div>
-        <div class="kv" style="font-size:15px;line-height:1.3">env prod + deploy 3–4 ต.ค.<br><small style="font-weight:600;color:var(--amber)">INet prod key · CARPRO_WEB_COOKIE</small></div>
+        <div class="kv" style="font-size:15px;line-height:1.3">env prod + deploy ภายใน 30 ก.ย.<br><small style="font-weight:600;color:var(--amber)">INet prod key · CARPRO_WEB_COOKIE</small></div>
       </div>
       <div class="kpi">
-        <div class="kt">🎉 ล่าสุด (27 ก.ย.)</div>
-        <div class="kv" style="font-size:15px">UAT ✅ 22 ก.ย.<br><small style="font-weight:600;color:var(--green)">เปลี่ยนเป็น CarPro Web</small></div>
+        <div class="kt">📋 Go-Live checklist (28 ก.ย.)</div>
+        <div class="kv" style="font-size:13px;line-height:1.45;font-weight:600">30 ก.ย. E-Tax One 3 Users<br>1 ต.ค. Go-Live E-Tax One + นำเข้า CarPro<br>3 ต.ค. Manual + Login<br>5 ต.ค. Go-Live DW + Job</div>
       </div>
     </div>
   </div>
@@ -260,12 +261,20 @@
       <h3>✅ เปลี่ยนเป็น CarPro Web integration — SDBAPP raw sync ไม่บล็อกแล้ว (ย้ายเป็น Phase 2)</h3>
       <div class="crit-list">
         <div class="crit-item">
-          <div class="ci-h">🔑 Env prod: INet prod + CARPRO_WEB_COOKIE<span class="tag pending">ภายใน 2 ต.ค.</span></div>
+          <div class="ci-h">🔑 Env prod: INet prod + CARPRO_WEB_COOKIE<span class="tag pending">ภายใน 30 ก.ย.</span></div>
           <p>ขอ INet prod endpoint/key/cert · เตรียม session cookie ของ user บริการ carpro-live แล้วลอง <code>/e-tax/mapping</code> preview จาก host prod ให้ผ่าน</p>
         </div>
         <div class="crit-item">
-          <div class="ci-h">🖥️ Deploy prod (Windows WinSW + nginx)<span class="tag pending">3–4 ต.ค.</span></div>
-          <p>แบบเดียวกับ UAT · DB <code>inet.*</code> + registry · smoke + dry-run <code>carpro_web</code> 1 batch → 5 ต.ค. เปิด job scheduler <code>etax_transform</code></p>
+          <div class="ci-h">🖥️ Deploy prod (Windows WinSW + nginx)<span class="tag pending">ภายใน 30 ก.ย.</span></div>
+          <p>แบบเดียวกับ UAT · DB <code>inet.*</code> + registry · smoke + dry-run <code>carpro_web</code> 1 batch → 1 ต.ค. เริ่มนำเข้าข้อมูล CarPro (ยังไม่ส่ง INet)</p>
+        </div>
+        <div class="crit-item">
+          <div class="ci-h">👤 E-Tax One (INET)<span class="tag wait">30 ก.ย. / 1 ต.ค.</span></div>
+          <p>ส่งมอบ E-Tax One สำหรับผู้ใช้งาน 3 Users (30 ก.ย.) → Go-Live E-Tax One (MCR) 1 ต.ค.</p>
+        </div>
+        <div class="crit-item">
+          <div class="ci-h">📖 Data Warehouse → Go-Live<span class="tag pending">3 ต.ค. / 5 ต.ค.</span></div>
+          <p>3 ต.ค. จัดส่ง User Manual + User Login · 5 ต.ค. Go-Live Data Warehouse + เปิด job scheduler <code>etax_transform</code> ส่งข้อมูลไป E-Tax One</p>
         </div>
       </div>
     </div>
@@ -288,7 +297,7 @@
               <th class="ow" rowspan="2" style="text-align:left">ผู้รับผิดชอบ</th>
               <th class="mon">ส.ค.</th>
               <th class="mon" colspan="5">กันยายน</th>
-              <th class="mon" colspan="2">ตุลาคม</th>
+              <th class="mon" colspan="3">ตุลาคม</th>
               <th rowspan="2" style="padding:0 10px">สถานะ</th>
             </tr>
             <tr>
@@ -297,7 +306,8 @@
               <th class="wk">7–13</th>
               <th class="wk">14–20</th>
               <th class="wk">21–27</th>
-              <th class="wk">28–2</th>
+              <th class="wk">28–30</th>
+              <th class="wk">1–2</th>
               <th class="wk">3–4</th>
               <th class="wk">5</th>
             </tr>
@@ -358,7 +368,8 @@
         <ul>
           <li><span class="chip red">RISK</span><b>CARPRO_WEB_COOKIE หมดอายุ</b> → ทั้ง batch fail · ใช้ user บริการ + เช็ค preview ทุกเช้า · ต่อ cookie แล้ว Re-Sync</li>
           <li><span class="chip amber">RISK</span><b>carpro-live ล่ม / layout PDF เปลี่ยน</b> → validator บล็อกก่อนส่ง · error ต่อใบโชว์ admin</li>
-          <li><span class="chip amber">RISK</span><b>Timeline สั้น</b> — INet prod key / cookie ไม่ทัน 2 ต.ค. → เลื่อน go-live (ไม่เปิดโดยไม่มี dry-run prod)</li>
+          <li><span class="chip amber">RISK</span><b>Timeline สั้น</b> — prod / INet prod key / cookie ต้องพร้อมภายใน 30 ก.ย. (นำเข้าข้อมูล 1 ต.ค.) · ไม่เปิด job 5 ต.ค. โดยไม่มี dry-run prod</li>
+          <li><span class="chip amber">RISK</span><b>นำเข้า 1–4 ต.ค.</b> — job scheduler ต้องปิดจนถึง 5 ต.ค. เพื่อไม่ส่ง E-Tax One ก่อนวัน</li>
           <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>SDBAPP raw sync</b> — ไม่อยู่บน critical path (ใช้ CarPro Web) → Phase 2</li>
           <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>บ.อ.01</b> 3 ก.ย. · <b>SIT</b> 15 ก.ย. · <b>UAT</b> 22 ก.ย.</li>
           <li><span class="chip blue">TODO</span><b>A6</b> — footer static text (MVP-B, ไม่บล็อก)</li>
@@ -369,7 +380,7 @@
 
   <footer>
     Powered by i24 <span class="sep">·</span> อ้างอิง <a href="plan_timeline.md">plan_timeline.md</a> · <a href="mvp_scope.md">mvp_scope.md</a> · <a href="pipeline_architecture.md">pipeline_architecture.md</a>
-    <span class="sep">·</span> Last updated 27 ก.ย. 2026
+    <span class="sep">·</span> Last updated 28 ก.ย. 2026
   </footer>
 </div>
 
@@ -384,7 +395,7 @@
 
 /* ============ GANTT ============
    [no, task, owner, startWeek, endWeek, barClass, status, milestone?]
-   weeks 1..8 ; barClass: b|c|d|g ; status: done|prog|todo|crit */
+   weeks 1..9 ; barClass: b|c|d|g ; status: done|prog|todo|crit */
 const stMap={
   done:["p-done","เสร็จแล้ว"], prog:["p-prog","กำลังทำ"],
   todo:["p-todo","ยังไม่เริ่ม"], crit:["p-crit","Critical"]
@@ -401,17 +412,20 @@ const data=[
   [8,"SIT / INet sandbox — ผ่าน 100% (15 ก.ย.)","i24 + INET",4,4,"d","done"],
   [9,"UAT + Training — 22 ก.ย. ✅","i24 + INET",5,5,"d","done"],
   [10,"Env prod: INet prod key + CARPRO_WEB_COOKIE","i24 + INET",6,6,"c","crit"],
-  [11,"Readiness review + code freeze (2 ต.ค.)","i24",6,6,"c","crit"],
-  [12,"Deploy prod (WinSW + nginx) + dry-run","i24",7,7,"b","todo"],
-  [13,"Go-Live (เปิด job scheduler etax_transform)","i24",8,8,"g","todo"],
+  [11,"Deploy prod (WinSW + nginx) + dry-run — ภายใน 30 ก.ย.","i24",6,6,"c","crit"],
+  [12,"ส่งมอบ E-Tax One 3 Users (30 ก.ย.)","INET → BU",6,6,"b","todo"],
+  [13,"Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro (1 ต.ค.)","INET + i24",7,8,"b","todo"],
+  [14,"Readiness review + code freeze (2 ต.ค.)","i24",7,7,"c","crit"],
+  [15,"User Manual Data Warehouse + User Login (3 ต.ค.)","i24",8,8,"b","todo"],
+  [16,"Go-Live Data Warehouse + Job ส่ง E-Tax One (5 ต.ค.)","i24",9,9,"g","todo"],
 ];
 const tb=document.getElementById("rows");
 data.forEach(r=>{
   const [no,task,owner,s,e,cls,st]=r;
   let cells="";
-  for(let w=1;w<=8;w++){
+  for(let w=1;w<=9;w++){
     const wknd=weekends.includes(w)?" wknd":"";
-    if(no===13 && w===8){ cells+=`<td class="gcell${wknd}"><span class="golive-flag">GO&nbsp;LIVE</span></td>`; continue; }
+    if(no===16 && w===9){ cells+=`<td class="gcell${wknd}"><span class="golive-flag">GO&nbsp;LIVE</span></td>`; continue; }
     if(s>0 && w>=s && w<=e){
       const only=(s===e);
       const roundL=(w===s)?" round-l":"";
@@ -439,25 +453,27 @@ const prog=[
   ["D","Vehicle detail + payment source (F34)",100,"done",
     "vehicle: AGREEMENT_NO → CARSALE_OVERRIDE_LOG (ล่าสุด) → CAR_TECHNICAL · F34 จาก <code>CASH_TRANSACTIONS</code> (RECEIPT) + CREDIT_CARDS · 10 ก.ย. คั่น <code>\" | \"</code> Title Case.","—"],
   ["E","SQL schema (inet.* + registry + pipeline log)",90,"prog",
-    "Phase 1 ใช้แค่ <code>03_inet_schema</code> → <code>04_etax_source_registry</code> → <code>02_pipeline_log</code> · raw/staging เก็บไว้ Phase 2.","deploy บน prod DB 3 ต.ค."],
+    "Phase 1 ใช้แค่ <code>03_inet_schema</code> → <code>04_etax_source_registry</code> → <code>02_pipeline_log</code> · raw/staging เก็บไว้ Phase 2.","deploy บน prod DB ภายใน 30 ก.ย."],
   ["F","Admin UI (search / mapping / monitor)",100,"done",
     "หน้าจอเจ้าหน้าที่เสร็จ: search / mapping preview / inet-documents monitor / branch / error remediation / job scheduler / users.","—"],
   ["G","Certificate / บ.อ.01 (สรรพากร)",100,"done",
     "<b>เรียบร้อยแล้ว — INET ยืนยัน 3 ก.ย.</b>: ขึ้นทะเบียน CA + บ.อ.01 ครบ · legal blocker ปลดล็อก.","ยืนยัน prod cert/key ตอน cutover"],
   ["H","INET coordination (JSON method / SIT / UAT)",90,"prog",
-    "JSON method ✅ · CN(81) ส่งผ่านจริง ✅ · <b>SIT ผ่าน 100% (15 ก.ย.)</b> · <b>UAT 22 ก.ย. ✅</b>.","ขอ INet prod endpoint/key ก่อน 2 ต.ค."],
+    "JSON method ✅ · CN(81) ส่งผ่านจริง ✅ · <b>SIT ผ่าน 100% (15 ก.ย.)</b> · <b>UAT 22 ก.ย. ✅</b>.","INet prod endpoint/key ภายใน 30 ก.ย. · E-Tax One 3 Users 30 ก.ย. · Go-Live E-Tax One (MCR) 1 ต.ค."],
   ["I","CarPro Web integration (carpro_web)",90,"crit",
-    "list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (H07 ของ 81) · transform/preview/Re-Sync/job scheduler บังคับ <code>carpro_web</code>.","CARPRO_WEB_COOKIE prod + dry-run บน prod 3–4 ต.ค."],
+    "list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (H07 ของ 81) · transform/preview/Re-Sync/job scheduler บังคับ <code>carpro_web</code>.","CARPRO_WEB_COOKIE prod ภายใน 30 ก.ย. → 1 ต.ค. เริ่มนำเข้าข้อมูล CarPro ให้ครบ (ยังไม่ส่ง INet)"],
   ["J","raw.carpro_* sync + staging (i24-data-platform)",0,"todo",
     "<b>ย้ายเป็น Phase 2</b> — ไม่บล็อก go-live แล้ว (Phase 1 ดึงจาก carpro-live ตรง).","Phase 2"],
   ["K","Infra prod (Windows WinSW + nginx)",30,"crit",
-    "แบบเดียวกับ UAT (<code>C:\\Applications\\i24-etax-service</code>, api + worker-1/2 + cron) · AWS ECS → Phase 2.","เตรียม host + cmd/.env prod ภายใน 2 ต.ค."],
+    "แบบเดียวกับ UAT (<code>C:\\Applications\\i24-etax-service</code>, api + worker-1/2 + cron) · AWS ECS → Phase 2.","เตรียม host + cmd/.env prod + deploy ภายใน 30 ก.ย."],
   ["L","SIT — INet sandbox",100,"done",
     "<b>ผ่าน 100% (15 ก.ย.)</b> · catalog July + samples · T03 + CN(81) ส่งผ่าน INET แล้ว.","—"],
   ["M","UAT + Training",100,"done",
     "<b>รันแล้ว 22 ก.ย.</b> · UAT Sign-Off FM-I24-IT-019.","แก้ P1 ที่เหลือก่อน freeze 2 ต.ค."],
+  ["O","User Manual + Login (Data Warehouse)",0,"todo",
+    "คู่มือหน้าจอ <code>/e-tax/*</code> (search / mapping / inet-documents / error remediation / job scheduler) + user/role บน prod.","จัดส่ง 3 ต.ค."],
   ["N","Production cutover + day-1 watch",0,"todo",
-    "เปิด job scheduler etax_transform (carpro_web) prod + เฝ้า failed / submit_status.","M8 (5 ต.ค.)"],
+    "Go-Live Data Warehouse + เปิด job scheduler etax_transform (carpro_web) ส่ง E-Tax One + เฝ้า failed / submit_status.","M8 (5 ต.ค.)"],
 ];
 const pb=document.getElementById("prows");
 function renderWS(filter){
@@ -505,9 +521,12 @@ const ms=[
   ["15 ก.ย.","M5","SIT — INet sandbox ผ่าน","ผ่าน 100%","done"],
   ["22 ก.ย.","M3b","CarPro Web integration ใช้ใน UAT","transform/preview/Re-Sync ผ่าน carpro_web","done"],
   ["22 ก.ย.","M6","UAT + Training","UAT Sign-Off FM-I24-IT-019","done"],
-  ["2 ต.ค.","M7","Readiness review + env prod + freeze","INet prod key + CARPRO_WEB_COOKIE + checklist ครบ","next"],
-  ["3–4 ต.ค.","M7b","Deploy prod + smoke + dry-run","/healthz เขียว · dry-run carpro_web ผ่าน",""],
-  ["5 ต.ค.","M8","Go-Live — เปิด job scheduler etax_transform","ส่งใบจริง + เฝ้า day-1","golive"],
+  ["30 ก.ย.","M7a","Deploy prod + smoke + dry-run","/healthz เขียว · dry-run carpro_web ผ่าน","next"],
+  ["30 ก.ย.","M7c","ส่งมอบ E-Tax One 3 Users","INET → BU · เข้า etax.one.th ได้ครบ",""],
+  ["1 ต.ค.","M7d","Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro","inet.* มีใบจาก carpro_web ครบ · ยังไม่ส่ง INet",""],
+  ["2 ต.ค.","M7","Readiness review + freeze","INet prod key + CARPRO_WEB_COOKIE + checklist ครบ",""],
+  ["3 ต.ค.","M7e","User Manual Data Warehouse + User Login","ผู้ใช้ได้ manual + login ครบ",""],
+  ["5 ต.ค.","M8","Go-Live Data Warehouse + Job ส่ง E-Tax One","เปิด job scheduler etax_transform · ส่งใบจริง + เฝ้า day-1","golive"],
 ];
 const mb=document.getElementById("milestones");
 ms.forEach(m=>{
