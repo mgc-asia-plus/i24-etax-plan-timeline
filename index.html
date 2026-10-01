@@ -241,7 +241,7 @@
       </div>
       <div class="kpi">
         <div class="kt">🚦 Critical path</div>
-        <div class="kv" style="font-size:15px;line-height:1.3">subdomain DNS · ตัด APP_ENV=prod<br><small style="font-weight:600;color:var(--amber)">INet prod key · CARPRO_WEB_COOKIE</small></div>
+        <div class="kv" style="font-size:15px;line-height:1.3">etax.mastercarrental.com · ตัด APP_ENV=prod<br><small style="font-weight:600;color:var(--amber)">INet prod key · CARPRO_WEB_COOKIE</small></div>
       </div>
       <div class="kpi">
         <div class="kt">📋 Go-Live checklist (อัปเดต 30 ก.ย.)</div>
@@ -255,14 +255,14 @@
     <div class="section-h">
       <div class="ico">🚦</div>
       <h2>Critical Path — อะไรกำหนดวัน Go-Live</h2>
-      <div class="hint">โค้ด + SIT + UAT + Docker บนโฮสต์ prod พร้อม · CI/CD ใน repo แล้ว · เหลือ runner + DNS + env</div>
+      <div class="hint">โค้ด + SIT + UAT + Docker บนโฮสต์ prod พร้อม · CI/CD ใน repo แล้ว · เหลือ runner + ชี้ DNS/TLS + env</div>
     </div>
     <div class="crit-banner">
       <h3>✅ โฮสต์ prod i24-web (172.17.26.91) — Docker ขึ้นแล้ว 29 ก.ย. · แอปยัง APP_ENV=preprod / path /preprod</h3>
       <div class="crit-list">
         <div class="crit-item">
-          <div class="ci-h">🌐 Subdomain DNS<span class="tag pending">งาน K ที่เหลือ</span></div>
-          <p>ชี้โดเมนมาที่ <code>172.17.26.91</code> + SG/TLS · ตอนนี้เข้าผ่าน <code>ssh -N -L 18080:localhost:8080 i24-web</code> แล้วเปิด <code>/preprod/</code> · ตัด <code>APP_ENV=prod</code> เมื่อ go-live</p>
+          <div class="ci-h">🌐 Subdomain <code>etax.mastercarrental.com</code><span class="tag pending">งาน K ที่เหลือ</span></div>
+          <p>ชี้ <code>etax.mastercarrental.com</code> มาที่ <code>172.17.26.91</code> + SG/TLS · URL สาธารณะ <code>https://etax.mastercarrental.com/preprod/</code> · จนกว่า DNS จะขึ้น เข้าผ่าน <code>ssh -N -L 18080:localhost:8080 i24-web</code> แล้วเปิด <code>/preprod/</code> · ตัด <code>APP_ENV=prod</code> เมื่อ go-live</p>
         </div>
         <div class="crit-item">
           <div class="ci-h">🔑 Env: INet prod + CARPRO_WEB_COOKIE<span class="tag pending">ภายใน 30 ก.ย.</span></div>
@@ -362,7 +362,7 @@
           <li><b>F34 payment</b> จาก <code>CASH_TRANSACTIONS</code> (via <code>tit.RECEIPT</code>) + <code>CREDIT_CARDS</code> · mask 4 หลักท้าย · คั่น <code>" | "</code> Title Case (10 ก.ย.)</li>
           <li><b>F68 WHT</b> = Σ(DEBIT−CREDIT) จาก <code>ACCOUNT_TRANS</code> (<code>ACCOUNT_NAME='WHT'</code>)</li>
           <li><b>F70</b> = <code>Agreement No.:</code> เสมอ · ใบลดหนี้ต่อ <code>Reason: {credit_note_reason}</code> (<code>REMARKS.RMK_REMARK</code>) · ต่อท้าย F34 · ไม่ใช้ <code>agreement_remark</code></li>
-          <li><b>โฮสต์ prod</b> = Linux i24-web <code>172.17.26.91</code> (Docker) · แอปยัง <code>APP_ENV=preprod</code> + <code>APP_BASE_PATH=/preprod</code> · Postgres <code>172.17.24.43</code></li>
+          <li><b>โฮสต์ prod</b> = Linux i24-web <code>172.17.26.91</code> (Docker) · subdomain <code>etax.mastercarrental.com</code> · แอปยัง <code>APP_ENV=preprod</code> + <code>APP_BASE_PATH=/preprod</code> · Postgres <code>172.17.24.43</code></li>
           <li><b>CI/CD (30 ก.ย.)</b> = GitHub Actions <code>CI</code>: test บน ubuntu แล้ว deploy บน self-hosted runner label <code>i24-web</code> → <code>scripts/deploy.sh</code> · ต้องลง runner บนโฮสต์ · ไม่ใส่ <code>cmd/.env</code> ใน Actions · รายละเอียด <code>docs/deployment/cicd.md</code></li>
           <li><b>ต้นทาง Phase 1</b> = <code>carpro_web</code>: invoice list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (หา H07 ของ 81) · env <code>CARPRO_WEB_COOKIE</code></li>
           <li><b>Job</b> = <code>/e-tax/job-scheduler</code> 12:00 / 18:00 / 23:00 · insert ใบใหม่จาก carpro-live เท่านั้น · ส่งซ้ำ = ปุ่มบนการ์ด</li>
@@ -375,7 +375,7 @@
         <ul>
           <li><span class="chip red">RISK</span><b>CARPRO_WEB_COOKIE หมดอายุ</b> → ทั้ง batch fail · ใช้ user บริการ + เช็ค preview ทุกเช้า · ต่อ cookie แล้ว Re-Sync</li>
           <li><span class="chip amber">RISK</span><b>carpro-live ล่ม / layout PDF เปลี่ยน</b> → validator บล็อกก่อนส่ง · error ต่อใบโชว์ admin</li>
-          <li><span class="chip amber">RISK</span><b>Timeline สั้น</b> — DNS + INet prod key + cookie ต้องทันนำเข้า 1 ต.ค. · stack โฮสต์ขึ้นแล้ว 29 ก.ย. · ไม่เปิด job 5 ต.ค. โดยไม่มี dry-run</li>
+          <li><span class="chip amber">RISK</span><b>Timeline สั้น</b> — ชี้ DNS <code>etax.mastercarrental.com</code> + INet prod key + cookie ต้องทันนำเข้า 1 ต.ค. · stack โฮสต์ขึ้นแล้ว 29 ก.ย. · ไม่เปิด job 5 ต.ค. โดยไม่มี dry-run</li>
           <li><span class="chip amber">RISK</span><b>นำเข้า 1–4 ต.ค.</b> — job scheduler ต้องปิดจนถึง 5 ต.ค. เพื่อไม่ส่ง E-Tax One ก่อนวัน</li>
           <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>SDBAPP raw sync</b> — ไม่อยู่บน critical path (ใช้ CarPro Web) → Phase 2</li>
           <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>บ.อ.01</b> 3 ก.ย. · <b>SIT</b> 15 ก.ย. · <b>UAT</b> 22 ก.ย.</li>
@@ -419,7 +419,7 @@ const data=[
   [8,"SIT / INet sandbox — ผ่าน 100% (15 ก.ย.)","i24 + INET",4,4,"d","done"],
   [9,"UAT + Training — 22 ก.ย. ✅","i24 + INET",5,5,"d","done"],
   [10,"Env prod: INet prod key + CARPRO_WEB_COOKIE","i24 + INET",6,6,"c","crit"],
-  [11,"Deploy Docker i24-web + CI/CD ใน repo · รอ runner + DNS","i24",6,6,"d","prog"],
+  [11,"Deploy Docker i24-web + CI/CD ใน repo · รอ runner + etax.mastercarrental.com","i24",6,6,"d","prog"],
   [12,"ส่งมอบ E-Tax One 3 Users (30 ก.ย.)","INET → BU",6,6,"b","todo"],
   [13,"Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro (1 ต.ค.)","INET + i24",7,8,"b","todo"],
   [14,"Readiness review + code freeze (2 ต.ค.)","i24",7,7,"c","crit"],
@@ -462,7 +462,7 @@ const prog=[
   ["E","SQL schema (inet.* + registry + pipeline log)",95,"prog",
     "บนโฮสต์ prod: API <code>Ensure*</code> แล้ว 29 ก.ย. (Postgres <code>172.17.24.43</code>) · raw/staging = Phase 2.","seed registry / branch_mapping / user_acl"],
   ["F","Admin UI (search / mapping / monitor)",100,"done",
-    "หน้าจอเจ้าหน้าที่เสร็จ: search / mapping preview / inet-documents monitor / branch / error remediation / job scheduler / users.","ใช้ผ่าน /preprod/... หลัง DNS (ตอนนี้ tunnel :18080)"],
+    "หน้าจอเจ้าหน้าที่เสร็จ: search / mapping preview / inet-documents monitor / branch / error remediation / job scheduler / users.","ใช้ผ่าน https://etax.mastercarrental.com/preprod/... (ตอนนี้ tunnel :18080)"],
   ["G","Certificate / บ.อ.01 (สรรพากร)",100,"done",
     "<b>เรียบร้อยแล้ว — INET ยืนยัน 3 ก.ย.</b>: ขึ้นทะเบียน CA + บ.อ.01 ครบ · legal blocker ปลดล็อก.","ยืนยัน prod cert/key ตอน cutover"],
   ["H","INET coordination (JSON method / SIT / UAT)",90,"prog",
@@ -472,7 +472,7 @@ const prog=[
   ["J","raw.carpro_* sync + staging (i24-data-platform)",0,"todo",
     "<b>ย้ายเป็น Phase 2</b> — ไม่บล็อก go-live แล้ว (Phase 1 ดึงจาก carpro-live ตรง).","Phase 2"],
   ["K","Infra prod (Docker บน i24-web 172.17.26.91)",92,"prog",
-    "โฮสต์นี้คือ <b>prod</b>. Compose Up 29 ก.ย. · <b>CI/CD 30 ก.ย.</b> push main → test → deploy (<code>cicd.md</code>) · แท็ก <code>:local</code>.","ลง self-hosted runner label i24-web · subdomain DNS แล้วค่อย APP_ENV=prod"],
+    "โฮสต์นี้คือ <b>prod</b>. Compose Up 29 ก.ย. · <b>CI/CD 30 ก.ย.</b> push main → test → deploy (<code>cicd.md</code>) · แท็ก <code>:local</code>. subdomain = <code>etax.mastercarrental.com</code>.","ลง self-hosted runner label i24-web · ชี้ DNS/TLS ของ etax.mastercarrental.com แล้วค่อย APP_ENV=prod"],
   ["L","SIT — INet sandbox",100,"done",
     "<b>ผ่าน 100% (15 ก.ย.)</b> · catalog July + samples · T03 + CN(81) ส่งผ่าน INET แล้ว.","—"],
   ["M","UAT + Training",100,"done",
@@ -528,7 +528,7 @@ const ms=[
   ["15 ก.ย.","M5","SIT — INet sandbox ผ่าน","ผ่าน 100%","done"],
   ["22 ก.ย.","M3b","CarPro Web integration ใช้ใน UAT","transform/preview/Re-Sync ผ่าน carpro_web","done"],
   ["22 ก.ย.","M6","UAT + Training","UAT Sign-Off FM-I24-IT-019","done"],
-  ["29–30 ก.ย.","M7a","Docker prod + CI/CD ใน repo","stack ✅ · pipeline ✅ · รอ runner + DNS","next"],
+  ["29–30 ก.ย.","M7a","Docker prod + CI/CD ใน repo","stack ✅ · pipeline ✅ · รอ runner + etax.mastercarrental.com","done"],
   ["30 ก.ย.","M7c","ส่งมอบ E-Tax One 3 Users","INET → BU · เข้า etax.one.th ได้ครบ",""],
   ["1 ต.ค.","M7d","Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro","inet.* มีใบจาก carpro_web ครบ · ยังไม่ส่ง INet",""],
   ["2 ต.ค.","M7","Readiness review + freeze","INet prod key + CARPRO_WEB_COOKIE + checklist ครบ",""],
