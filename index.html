@@ -244,8 +244,8 @@
         <div class="kv" style="font-size:15px;line-height:1.3">etax.mastercarrental.com · ตัด APP_ENV=prod<br><small style="font-weight:600;color:var(--amber)">INet prod key · CARPRO_WEB_COOKIE</small></div>
       </div>
       <div class="kpi">
-        <div class="kt">📋 Go-Live checklist (อัปเดต 30 ก.ย.)</div>
-        <div class="kv" style="font-size:13px;line-height:1.45;font-weight:600">30 ก.ย. E-Tax One 3 Users<br>1 ต.ค. Go-Live E-Tax One + นำเข้า CarPro<br>3 ต.ค. Manual + Login<br>5 ต.ค. Go-Live DW + Job</div>
+        <div class="kt">📋 Go-Live checklist (อัปเดต 3 ต.ค.)</div>
+        <div class="kv" style="font-size:13px;line-height:1.45;font-weight:600">30 ก.ย. E-Tax One 3 Users<br>1 ต.ค. Go-Live E-Tax One + นำเข้า CarPro<br>3 ต.ค. Manual + Login · ที่อยู่ View Driver + H13<br>ก่อน 5 ต.ค. deploy + แจ้ง OPS<br>5 ต.ค. Go-Live DW + Job</div>
       </div>
     </div>
   </div>
@@ -366,6 +366,8 @@
           <li><b>CI/CD (30 ก.ย.)</b> = GitHub Actions <code>CI</code>: test บน ubuntu แล้ว deploy บน self-hosted runner label <code>i24-web</code> → <code>scripts/deploy.sh</code> · ต้องลง runner บนโฮสต์ · ไม่ใส่ <code>cmd/.env</code> ใน Actions · รายละเอียด <code>docs/deployment/cicd.md</code></li>
           <li><b>ต้นทาง Phase 1</b> = <code>carpro_web</code>: invoice list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (job เฟส 2 / กดแปลง 1 ใบ / Re-Sync ของ 81: insert H07 แล้ว 81) · env <code>CARPRO_WEB_COOKIE</code></li>
           <li><b>Job</b> = <code>/e-tax/job-scheduler</code> 12:00 / 18:00 / 23:00 · insert ใบใหม่จาก carpro-live เท่านั้น · ส่งซ้ำ = ปุ่มบนการ์ด</li>
+          <li><b>ที่อยู่ผู้ซื้อ (3 ต.ค.)</b> = View Driver เท่านั้น (<code>InvoiceQAProceed -AVDD</code> คีย์ PDF <code>REF. INVOICE NO.</code>) · B13 = Address 1 + 2 · B14 = City · B22 = Province/State · B10 = Postal · ไม่ fallback PDF · วันที่/ยอด/รายการยังจาก PDF · TH ต้องมี City + Province/State</li>
+          <li><b>H13 (3 ต.ค.)</b> = Receive Date/Time ของแถวที่มี Total After Tax · ไม่เกิน <code>REF. INVOICE DATE</code> · ล่าสุด · check_out แถวเดียวกัน · 81 ไม่ส่ง H13</li>
           <li><b>Hub HTML</b> (<code>deploy/nginx/html</code> ลิงก์ <code>/etax-uat/</code>) = <b>UAT Windows เท่านั้น</b> · Docker บน i24-web ไม่ใช้ hub — nginx proxy ทั้ง <code>/</code> ไป API ที่ prefix <code>/preprod</code></li>
           <li><b>Raw/staging</b> (<code>i24-data-platform</code>) → Phase 2 · intake staging ถูกปิดในโค้ด</li>
         </ul>
@@ -374,6 +376,8 @@
         <h3>⚠️ ความเสี่ยง & งานค้าง</h3>
         <ul>
           <li><span class="chip red">RISK</span><b>CARPRO_WEB_COOKIE หมดอายุ</b> → ทั้ง batch fail · ใช้ user บริการ + เช็ค preview ทุกเช้า · ต่อ cookie แล้ว Re-Sync</li>
+          <li><span class="chip red">RISK</span><b>View Driver กรอกไม่ครบ</b> — dry-run 7 วัน T03 failed 14/35 (~2 ใบ/วัน) ด้วย <code>กรุณาใส่ ข้อมูล City/Province/State ให้ครบถ้วน</code> · แจ้ง OPS ก่อน 5 ต.ค. · แก้ใน CarPro แล้ว Re-Sync & Resend · มติ = บล็อก</li>
+          <li><span class="chip blue">TODO</span><b>ก่อน 5 ต.ค.</b> — commit + deploy + restart API (merge seed error remediation ใหม่ 2 รายการ)</li>
           <li><span class="chip amber">RISK</span><b>carpro-live ล่ม / layout PDF เปลี่ยน</b> → validator บล็อกก่อนส่ง · error ต่อใบโชว์ admin</li>
           <li><span class="chip amber">RISK</span><b>Timeline สั้น</b> — ชี้ DNS <code>etax.mastercarrental.com</code> + INet prod key + cookie ต้องทันนำเข้า 1 ต.ค. · stack โฮสต์ขึ้นแล้ว 29 ก.ย. · ไม่เปิด job 5 ต.ค. โดยไม่มี dry-run</li>
           <li><span class="chip amber">RISK</span><b>นำเข้า 1–4 ต.ค.</b> — job scheduler ต้องปิดจนถึง 5 ต.ค. เพื่อไม่ส่ง E-Tax One ก่อนวัน</li>
@@ -387,7 +391,7 @@
 
   <footer>
     Powered by i24 <span class="sep">·</span> อ้างอิง <a href="plan_timeline.md">plan_timeline.md</a> · <a href="mvp_scope.md">mvp_scope.md</a> · <a href="pipeline_architecture.md">pipeline_architecture.md</a>
-    <span class="sep">·</span> Last updated 30 ก.ย. 2026
+    <span class="sep">·</span> Last updated 3 ต.ค. 2026
   </footer>
 </div>
 
@@ -418,13 +422,13 @@ const data=[
   [7,"CarPro Web integration (carpro_web)","i24",4,5,"d","done"],
   [8,"SIT / INet sandbox — ผ่าน 100% (15 ก.ย.)","i24 + INET",4,4,"d","done"],
   [9,"UAT + Training — 22 ก.ย. ✅","i24 + INET",5,5,"d","done"],
-  [10,"Env prod: INet prod key + CARPRO_WEB_COOKIE","i24 + INET",6,6,"c","crit"],
-  [11,"Deploy Docker i24-web + CI/CD ใน repo · รอ runner + etax.mastercarrental.com","i24",6,6,"d","prog"],
-  [12,"ส่งมอบ E-Tax One 3 Users (30 ก.ย.)","INET → BU",6,6,"b","done"],
-  [13,"Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro (1 ต.ค.)","INET + i24",7,8,"b","done"],
-  [14,"Readiness review + code freeze (2 ต.ค.)","i24",7,7,"c","crit"],
-  [15,"User Manual Data Warehouse + User Login (3 ต.ค.)","i24",8,8,"b","todo"],
-  [16,"Go-Live Data Warehouse + Job ส่ง E-Tax One (5 ต.ค.)","i24",9,9,"g","todo"],
+  [10,"Env prod: INet prod key + CARPRO_WEB_COOKIE","i24 + INET",6,6,"d","done"],
+  [11,"Deploy Docker i24-web + CI/CD ใน repo","i24",6,6,"d","done"],
+  [12,"ส่งมอบ E-Tax One 3 Users (30 ก.ย.)","INET → BU",6,6,"d","done"],
+  [13,"Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro (1 ต.ค.)","INET + i24",7,8,"d","done"],
+  [14,"Readiness review + code freeze (2 ต.ค.)","i24",7,7,"d","done"],
+  [15,"User Manual Data Warehouse + User Login (3 ต.ค.)","i24",8,8,"d","done"],
+  [16,"Go-Live Data Warehouse + Job ส่ง E-Tax One (5 ต.ค.)","i24",9,9,"g","prog"],
 ];
 const tb=document.getElementById("rows");
 data.forEach(r=>{
@@ -468,7 +472,7 @@ const prog=[
   ["H","INET coordination (JSON method / SIT / UAT)",90,"prog",
     "JSON method ✅ · CN(81) ส่งผ่านจริง ✅ · <b>SIT ผ่าน 100% (15 ก.ย.)</b> · <b>UAT 22 ก.ย. ✅</b>.","INet prod endpoint/key ภายใน 30 ก.ย. · E-Tax One 3 Users 30 ก.ย. · Go-Live E-Tax One (MCR) 1 ต.ค."],
   ["I","CarPro Web integration (carpro_web)",90,"crit",
-    "list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (เฟส 2: insert H07 แล้ว 81) · transform/preview/Re-Sync/job scheduler บังคับ <code>carpro_web</code>.","CARPRO_WEB_COOKIE prod ภายใน 30 ก.ย. → 1 ต.ค. เริ่มนำเข้าข้อมูล CarPro ให้ครบ (ยังไม่ส่ง INet)"],
+    "list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (เฟส 2: insert H07 แล้ว 81) · transform/preview/Re-Sync/job scheduler บังคับ <code>carpro_web</code> · <b>3 ต.ค.:</b> ที่อยู่ B13/B14/B22/B10 จาก View Driver (<code>-AVDD</code> คีย์ <code>REF. INVOICE NO.</code>) · TH ต้องมี City + Province/State · H13 เลือกแถวที่มี Total After Tax ไม่เกิน <code>REF. INVOICE DATE</code> · live T03+81 ผ่าน · dry-run 7 วัน T03 failed 14/35 (ข้อมูล OPS).","deploy + restart API → แจ้ง OPS กรอก City/Province + Country ให้ถูกก่อน 5 ต.ค."],
   ["J","raw.carpro_* sync + staging (i24-data-platform)",0,"todo",
     "<b>ย้ายเป็น Phase 2</b> — ไม่บล็อก go-live แล้ว (Phase 1 ดึงจาก carpro-live ตรง).","Phase 2"],
   ["K","Infra prod (Docker บน i24-web 172.17.26.91)",92,"prog",
@@ -477,9 +481,9 @@ const prog=[
     "<b>ผ่าน 100% (15 ก.ย.)</b> · catalog July + samples · T03 + CN(81) ส่งผ่าน INET แล้ว.","—"],
   ["M","UAT + Training",100,"done",
     "<b>รันแล้ว 22 ก.ย.</b> · UAT Sign-Off FM-I24-IT-019.","แก้ P1 ที่เหลือก่อน freeze 2 ต.ค."],
-  ["O","User Manual + Login (Data Warehouse)",0,"todo",
-    "คู่มือหน้าจอ <code>/e-tax/*</code> (search / mapping / inet-documents / error remediation / job scheduler) + user/role บน prod.","จัดส่ง 3 ต.ค."],
-  ["N","Production cutover + day-1 watch",0,"todo",
+  ["O","User Manual + Login (Data Warehouse)",100,"done",
+    "คู่มือหน้าจอ <code>/e-tax/*</code> (search / mapping / inet-documents / error remediation / job scheduler) + user/role บน prod · <b>จัดส่งแล้ว 3 ต.ค.</b>.","—"],
+  ["N","Production cutover + day-1 watch",0,"prog",
     "Go-Live Data Warehouse + เปิด job scheduler etax_transform (carpro_web) ส่ง E-Tax One + เฝ้า failed / submit_status.","M8 (5 ต.ค.)"],
 ];
 const pb=document.getElementById("prows");
@@ -531,9 +535,9 @@ const ms=[
   ["29–30 ก.ย.","M7a","Docker prod + CI/CD ใน repo","stack ✅ · pipeline ✅ · รอ runner + etax.mastercarrental.com","done"],
   ["30 ก.ย.","M7c","ส่งมอบ E-Tax One 3 Users","INET → BU · เข้า etax.one.th ได้ครบ","done"],
   ["1 ต.ค.","M7d","Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro","inet.* มีใบจาก carpro_web ครบ · ยังไม่ส่ง INet","done"],
-  ["2 ต.ค.","M7","Readiness review + freeze","INet prod key + CARPRO_WEB_COOKIE + checklist ครบ","next"],
-  ["3 ต.ค.","M7e","User Manual Data Warehouse + User Login","ผู้ใช้ได้ manual + login ครบ",""],
-  ["5 ต.ค.","M8","Go-Live Data Warehouse + Job ส่ง E-Tax One","เปิด job scheduler etax_transform · ส่งใบจริง + เฝ้า day-1","golive"],
+  ["2 ต.ค.","M7","Readiness review + freeze","INet prod key + CARPRO_WEB_COOKIE + checklist ครบ","done"],
+  ["3 ต.ค.","M7e","User Manual Data Warehouse + User Login","ผู้ใช้ได้ manual + login ครบ","done"],
+  ["5 ต.ค.","M8","Go-Live Data Warehouse + Job ส่ง E-Tax One","✅ พร้อม · เปิด job scheduler etax_transform · ส่งใบจริง + เฝ้า day-1","golive"],
 ];
 const mb=document.getElementById("milestones");
 ms.forEach(m=>{
