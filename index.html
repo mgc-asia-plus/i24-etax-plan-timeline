@@ -216,10 +216,10 @@
         <h1>E-Tax — CarPro → INet</h1>
         <p class="flow">ดึงใบจาก <code>carpro-live</code> (CarPro Web integration) → <code>inet.*</code> → ส่งขึ้น <code>INet</code> · ปรับจาก INET Action Plan มาเป็นฝั่ง i24</p>
       </div>
-      <div class="countdown">
-        <div class="big" id="cd-days">—</div>
-        <div class="lbl">วันเหลือถึง Go-Live Data Warehouse</div>
-        <div class="date">5 ต.ค. 2026 · จันทร์</div>
+      <div class="countdown" style="background:var(--green);box-shadow:0 6px 18px rgba(15,157,99,.28)">
+        <div class="big">LIVE</div>
+        <div class="lbl">Go-Live เรียบร้อย</div>
+        <div class="date">Data Warehouse · 5 ต.ค. 2026</div>
         <div class="date" style="border-top:0;margin-top:2px;padding-top:0;font-weight:500">E-Tax One (MCR) · 1 ต.ค.</div>
       </div>
     </div>
@@ -228,57 +228,53 @@
       <div class="kpi dev">
         <div class="ring" style="--p:100;--c:var(--green)"><span>100%</span></div>
         <div>
-          <div class="kt">🧩 งานพัฒนา (A–F)</div>
-          <div class="kv">พร้อม <small>· T03 + CN(81) + หน้าจอเจ้าหน้าที่</small></div>
+          <div class="kt">🧩 งานพัฒนา</div>
+          <div class="kv">เสร็จ <small>· T03 + CN(81) + หน้าจอเจ้าหน้าที่</small></div>
         </div>
       </div>
       <div class="kpi ops">
-        <div class="ring" style="--p:100;--c:var(--amber)"><span>100%</span></div>
+        <div class="ring" style="--p:100;--c:var(--green)"><span>100%</span></div>
         <div>
-          <div class="kt">🏛️ Ops / Infra / Legal (G–O)</div>
-          <div class="kv">ตัวกำหนดจริง <small>· SIT ✅ · UAT ✅ · Docker โฮสต์ prod ✅ · E-Tax One 3 Users ✅ · Data Warehouse ✅</small></div>
+          <div class="kt">🏛️ Ops / Infra / Legal</div>
+          <div class="kv">เสร็จ <small>· บ.อ.01 · SIT · UAT · prod · E-Tax One</small></div>
         </div>
       </div>
       <div class="kpi">
-        <div class="kt">🚦 Critical path</div>
-        <div class="kv" style="font-size:15px;line-height:1.3">etax.mastercarrental.com · ตัด APP_ENV=prod<br><small style="font-weight:600;color:var(--amber)">INet prod key · CARPRO_WEB_COOKIE</small></div>
+        <div class="kt">🌐 Production</div>
+        <div class="kv" style="font-size:14px;line-height:1.35">etax.mastercarrental.com<br><small style="font-weight:600;color:var(--green)">APP_ENV=prod · runner i24-web ✅</small></div>
       </div>
       <div class="kpi">
-        <div class="kt">📋 Go-Live checklist (อัปเดต 3 ต.ค.)</div>
-        <div class="kv" style="font-size:13px;line-height:1.45;font-weight:600">30 ก.ย. E-Tax One 3 Users<br>1 ต.ค. Go-Live E-Tax One + นำเข้า CarPro<br>3 ต.ค. Manual + Login · ที่อยู่ View Driver + H13<br>ก่อน 5 ต.ค. deploy + แจ้ง OPS<br>5 ต.ค. Go-Live DW + Job</div>
+        <div class="kt">🔄 Job ส่ง E-Tax One</div>
+        <div class="kv" style="font-size:14px;line-height:1.35">12:00 · 18:00 · 23:00<br><small style="font-weight:600">เปิดตั้งแต่ 5 ต.ค.</small></div>
       </div>
     </div>
   </div>
 
-  <!-- ================= CRITICAL PATH ================= -->
+  <!-- ================= PRODUCTION ================= -->
   <div class="section">
     <div class="section-h">
-      <div class="ico">🚦</div>
-      <h2>Critical Path — อะไรกำหนดวัน Go-Live</h2>
-      <div class="hint">โค้ด + SIT + UAT + Docker บนโฮสต์ prod พร้อม · CI/CD ใน repo แล้ว · เหลือ runner + ชี้ DNS/TLS + env</div>
+      <div class="ico">✅</div>
+      <h2>Production — ทำงานจริงแล้ว</h2>
+      <div class="hint">อัปเดต 9 ต.ค. 2026</div>
     </div>
-    <div class="crit-banner">
-      <h3>✅ โฮสต์ prod i24-web (172.17.26.91) — Docker ขึ้นแล้ว 29 ก.ย. · แอปยัง APP_ENV=preprod / path /preprod</h3>
+    <div class="crit-banner" style="background:linear-gradient(135deg,#e7f7ef 0,#fff 60%);border-color:#bfe8d3;border-left-color:var(--green)">
+      <h3 style="color:#0b6b43">✅ i24-web (172.17.26.91) · APP_ENV=prod · https://etax.mastercarrental.com/</h3>
       <div class="crit-list">
         <div class="crit-item">
-          <div class="ci-h">🌐 Subdomain <code>etax.mastercarrental.com</code><span class="tag pending">งาน K ที่เหลือ</span></div>
-          <p>ชี้ <code>etax.mastercarrental.com</code> มาที่ <code>172.17.26.91</code> + SG/TLS · URL สาธารณะ <code>https://etax.mastercarrental.com/preprod/</code> · จนกว่า DNS จะขึ้น เข้าผ่าน <code>ssh -N -L 18080:localhost:8080 i24-web</code> แล้วเปิด <code>/preprod/</code> · ตัด <code>APP_ENV=prod</code> เมื่อ go-live</p>
+          <div class="ci-h">🖥️ Runtime</div>
+          <p>Docker Compose: nginx <code>:8080</code> → api + worker-1/2 + cron · Postgres <code>172.17.24.43</code></p>
         </div>
         <div class="crit-item">
-          <div class="ci-h">🔑 Env: INet prod + CARPRO_WEB_COOKIE<span class="tag pending">ภายใน 30 ก.ย.</span></div>
-          <p>ขอ INet prod endpoint/key/cert · cookie user บริการ carpro-live แล้วลอง mapping preview จากโฮสต์นี้ · ไฟล์ <code>cmd/.env.preprod</code> / <code>.env.production</code> ใน repo ยังเป็น preprod</p>
+          <div class="ci-h">🚀 CI/CD</div>
+          <p><code>push main</code> → test → deploy บน self-hosted runner <code>i24-web</code> → <code>scripts/deploy.sh</code></p>
         </div>
         <div class="crit-item">
-          <div class="ci-h">🖥️ Deploy Docker + CI/CD<span class="tag wait">stack ✅ 29 ก.ย. · pipeline 30 ก.ย.</span></div>
-          <p>nginx <code>:8080</code> → api + worker-1/2 + cron · <code>scripts/deploy.sh</code> · สาย push main → test → deploy · <b>เหลือลง runner label <code>i24-web</code></b> · dry-run <code>carpro_web</code> 1 batch · ดู <code>docs/deployment/cicd.md</code></p>
+          <div class="ci-h">📥 ต้นทาง</div>
+          <p><code>carpro_web</code>: list + PDF + IREM / agreement / View Driver + Handle Payment · env <code>CARPRO_WEB_COOKIE</code></p>
         </div>
         <div class="crit-item">
-          <div class="ci-h">👤 E-Tax One (INET)<span class="tag wait">30 ก.ย. / 1 ต.ค.</span></div>
-          <p>ส่งมอบ E-Tax One สำหรับผู้ใช้งาน 3 Users (30 ก.ย.) → Go-Live E-Tax One (MCR) 1 ต.ค.</p>
-        </div>
-        <div class="crit-item">
-          <div class="ci-h">📖 Data Warehouse → Go-Live<span class="tag pending">3 ต.ค. / 5 ต.ค.</span></div>
-          <p>3 ต.ค. จัดส่ง User Manual + User Login · 5 ต.ค. Go-Live Data Warehouse + เปิด job scheduler <code>etax_transform</code> ส่งข้อมูลไป E-Tax One</p>
+          <div class="ci-h">🔁 ส่งซ้ำ</div>
+          <p>ปุ่ม <b>ซิงก์ใหม่และส่งซ้ำ</b> · ใบที่ส่งสำเร็จแล้วต้องลบบน INet (OTP) ก่อน — ระบบตรวจ getdocumentstatus ให้</p>
         </div>
       </div>
     </div>
@@ -357,33 +353,25 @@
       <div class="card info-card">
         <h3>🔑 Key facts (sync จากโค้ดจริง)</h3>
         <ul>
-          <li><b>ใบลดหนี้ (CN)</b> = มี <code>APPLY_TO_INVOICE_NO</code> AND <code>INVOICE_AMOUNT &lt; 0</code> AND ใบต้นฉบับมีใบกำกับภาษี → <code>81</code></li>
-          <li><b>Doc type</b>: amount ≥ 0 + มี <code>tit</code> → <code>T03</code> · amount ≥ 0 ไม่มี <code>tit</code> → บล็อก · amount &lt; 0 ไม่เข้าเกณฑ์ CN → บล็อก+guard</li>
-          <li><b>F34 payment</b> จาก <code>CASH_TRANSACTIONS</code> (via <code>tit.RECEIPT</code>) + <code>CREDIT_CARDS</code> · mask 4 หลักท้าย · คั่น <code>" | "</code> Title Case (10 ก.ย.)</li>
-          <li><b>F68 WHT</b> = Σ(DEBIT−CREDIT) จาก <code>ACCOUNT_TRANS</code> (<code>ACCOUNT_NAME='WHT'</code>)</li>
-          <li><b>F70</b> = <code>Agreement No.:</code> เสมอ · ต่อท้าย F34 · <b>81 ไม่ต่อ Reason ใน F70</b> (เหตุผล = H06 จาก IREM) · ไม่ใช้ <code>agreement_remark</code></li>
-          <li><b>โฮสต์ prod</b> = Linux i24-web <code>172.17.26.91</code> (Docker) · subdomain <code>etax.mastercarrental.com</code> · แอปยัง <code>APP_ENV=preprod</code> + <code>APP_BASE_PATH=/preprod</code> · Postgres <code>172.17.24.43</code></li>
-          <li><b>CI/CD (30 ก.ย.)</b> = GitHub Actions <code>CI</code>: test บน ubuntu แล้ว deploy บน self-hosted runner label <code>i24-web</code> → <code>scripts/deploy.sh</code> · ต้องลง runner บนโฮสต์ · ไม่ใส่ <code>cmd/.env</code> ใน Actions · รายละเอียด <code>docs/deployment/cicd.md</code></li>
-          <li><b>ต้นทาง Phase 1</b> = <code>carpro_web</code>: invoice list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (job เฟส 2 / กดแปลง 1 ใบ / Re-Sync ของ 81: insert H07 แล้ว 81) · env <code>CARPRO_WEB_COOKIE</code></li>
-          <li><b>Job</b> = <code>/e-tax/job-scheduler</code> 12:00 / 18:00 / 23:00 · insert ใบใหม่จาก carpro-live เท่านั้น · ส่งซ้ำ = ปุ่มบนการ์ด</li>
-          <li><b>ที่อยู่ผู้ซื้อ (3 ต.ค.)</b> = View Driver เท่านั้น (<code>InvoiceQAProceed -AVDD</code> คีย์ PDF <code>REF. INVOICE NO.</code>) · B13 = Address 1 + 2 · B14 = City · B22 = Province/State · B10 = Postal · ไม่ fallback PDF · วันที่/ยอด/รายการยังจาก PDF · TH ต้องมี City + Province/State</li>
-          <li><b>H13 (3 ต.ค.)</b> = Receive Date/Time ของแถวที่มี Total After Tax · ไม่เกิน <code>REF. INVOICE DATE</code> · ล่าสุด · check_out แถวเดียวกัน · 81 ไม่ส่ง H13</li>
-          <li><b>Hub HTML</b> (<code>deploy/nginx/html</code> ลิงก์ <code>/etax-uat/</code>) = <b>UAT Windows เท่านั้น</b> · Docker บน i24-web ไม่ใช้ hub — nginx proxy ทั้ง <code>/</code> ไป API ที่ prefix <code>/preprod</code></li>
-          <li><b>Raw/staging</b> (<code>i24-data-platform</code>) → Phase 2 · intake staging ถูกปิดในโค้ด</li>
+          <li><b>Doc type</b>: amount ≥ 0 + มี <code>tit</code> → <code>T03</code> · ใบลดหนี้ (มี <code>CANELLATION_TAX_INV</code> ชี้ใบเดิม) → <code>81</code> · ยอดลบไม่เข้าเกณฑ์ CN → บล็อก</li>
+          <li><b>81</b>: H07/H08/H09 ← ใบเดิมผ่าน Handle Payment (insert H07 ก่อนแล้ว 81) · H06 = IREM · Correct ผ่าน F38 · F40 = Original − Correct</li>
+          <li><b>F70</b> = <code>Agreement No.:</code> เสมอ + ข้อความชำระเงิน · ไม่ส่ง F34 · F68 WHT ส่งเมื่อมี</li>
+          <li><b>Job</b> = <code>/e-tax/job-scheduler</code> 12:00 / 18:00 / 23:00 · insert ใบใหม่จาก carpro-live เท่านั้น</li>
+          <li><b>ที่อยู่ผู้ซื้อ</b> = View Driver เท่านั้น · B13 = Address 1 + 2 · B14 = City · B22 = Province/State · B10 = Postal · TH ต้องมี City + Province/State · B25/O25 ตรวจกับ <code>iso_countries</code> (8 ต.ค.)</li>
+          <li><b>L24</b> = round2(L22 × <code>vat_rate</code>) ต่อบรรทัด · ไม่เกลี่ย VAT ท้ายใบ (6 ต.ค.)</li>
+          <li><b>สิทธิ์สาขา</b> = รหัส CarPro 2 หลัก (prefix <code>source_doc_id</code>) ไม่ใช่ C02 (6 ต.ค.)</li>
+          <li><b>ER011</b> = INet prod ไม่รับส่งซ้ำ · เก็บ <code>inet_transaction_code</code> ของ submit แรก · ตรวจ getdocumentstatus ก่อน re-sync / POST (6 ต.ค.)</li>
+          <li><b>Raw/staging</b> (<code>i24-data-platform</code>) → Phase 2 · intake staging ปิดในโค้ด</li>
         </ul>
       </div>
       <div class="card info-card">
-        <h3>⚠️ ความเสี่ยง & งานค้าง</h3>
+        <h3>👀 เฝ้าระวัง & Backlog</h3>
         <ul>
-          <li><span class="chip red">RISK</span><b>CARPRO_WEB_COOKIE หมดอายุ</b> → ทั้ง batch fail · ใช้ user บริการ + เช็ค preview ทุกเช้า · ต่อ cookie แล้ว Re-Sync</li>
-          <li><span class="chip red">RISK</span><b>View Driver กรอกไม่ครบ</b> — dry-run 7 วัน T03 failed 14/35 (~2 ใบ/วัน) ด้วย <code>กรุณาใส่ ข้อมูล City/Province/State ให้ครบถ้วน</code> · แจ้ง OPS ก่อน 5 ต.ค. · แก้ใน CarPro แล้ว Re-Sync & Resend · มติ = บล็อก</li>
-          <li><span class="chip blue">TODO</span><b>ก่อน 5 ต.ค.</b> — commit + deploy + restart API (merge seed error remediation ใหม่ 2 รายการ)</li>
-          <li><span class="chip amber">RISK</span><b>carpro-live ล่ม / layout PDF เปลี่ยน</b> → validator บล็อกก่อนส่ง · error ต่อใบโชว์ admin</li>
-          <li><span class="chip amber">RISK</span><b>Timeline สั้น</b> — ชี้ DNS <code>etax.mastercarrental.com</code> + INet prod key + cookie ต้องทันนำเข้า 1 ต.ค. · stack โฮสต์ขึ้นแล้ว 29 ก.ย. · ไม่เปิด job 5 ต.ค. โดยไม่มี dry-run</li>
-          <li><span class="chip amber">RISK</span><b>นำเข้า 1–4 ต.ค.</b> — job scheduler ต้องปิดจนถึง 5 ต.ค. เพื่อไม่ส่ง E-Tax One ก่อนวัน</li>
-          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>SDBAPP raw sync</b> — ไม่อยู่บน critical path (ใช้ CarPro Web) → Phase 2</li>
-          <li><span class="chip" style="background:var(--green-soft);color:var(--green)">ปิดแล้ว</span><b>บ.อ.01</b> 3 ก.ย. · <b>SIT</b> 15 ก.ย. · <b>UAT</b> 22 ก.ย.</li>
-          <li><span class="chip blue">TODO</span><b>A6</b> — footer static text (MVP-B, ไม่บล็อก)</li>
+          <li><span class="chip red">WATCH</span><b>CARPRO_WEB_COOKIE หมดอายุ</b> → ทั้ง batch fail · เช็ค preview ทุกเช้า · ต่อ cookie แล้วซิงก์ใหม่และส่งซ้ำ</li>
+          <li><span class="chip red">WATCH</span><b>View Driver กรอกไม่ครบ</b> (~2 ใบ/วัน) → OPS แก้ใน CarPro แล้วส่งซ้ำ · มติ = บล็อก</li>
+          <li><span class="chip amber">WATCH</span><b>carpro-live ล่ม / layout PDF เปลี่ยน</b> → validator บล็อกก่อนส่ง · error ต่อใบโชว์ admin</li>
+          <li><span class="chip amber">WATCH</span><b>แก้ใบที่ส่งแล้ว</b> → บัญชีลบบน INet (OTP) ก่อน · ER011 = เหลือง "รอลบบน INet"</li>
+          <li><span class="chip blue">PHASE 2</span><b>raw sync + staging</b> · AWS (RDS/ECS) · A6 footer static · F4 PdfTemplateId ต่อชนิด · govulncheck/cover</li>
         </ul>
       </div>
     </div>
@@ -391,19 +379,11 @@
 
   <footer>
     Powered by i24 <span class="sep">·</span> อ้างอิง <a href="plan_timeline.md">plan_timeline.md</a> · <a href="mvp_scope.md">mvp_scope.md</a> · <a href="pipeline_architecture.md">pipeline_architecture.md</a>
-    <span class="sep">·</span> Last updated 3 ต.ค. 2026
+    <span class="sep">·</span> Last updated 9 ต.ค. 2026
   </footer>
 </div>
 
 <script>
-/* ============ COUNTDOWN ============ */
-(function(){
-  const goLive=new Date(2026,9,5); // 5 Oct 2026
-  const now=new Date();
-  const days=Math.max(0,Math.ceil((goLive-now)/86400000));
-  document.getElementById('cd-days').textContent=days;
-})();
-
 /* ============ GANTT ============
    [no, task, owner, startWeek, endWeek, barClass, status, milestone?]
    weeks 1..9 ; barClass: b|c|d|g ; status: done|prog|todo|crit */
@@ -428,7 +408,7 @@ const data=[
   [13,"Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro (1 ต.ค.)","INET + i24",7,8,"d","done"],
   [14,"Readiness review + code freeze (2 ต.ค.)","i24",7,7,"d","done"],
   [15,"User Manual Data Warehouse + User Login (3 ต.ค.)","i24",8,8,"d","done"],
-  [16,"Go-Live Data Warehouse + Job ส่ง E-Tax One (5 ต.ค.)","i24",9,9,"g","prog"],
+  [16,"Go-Live Data Warehouse + Job ส่ง E-Tax One (5 ต.ค.)","i24",9,9,"g","done"],
 ];
 const tb=document.getElementById("rows");
 data.forEach(r=>{
@@ -458,33 +438,31 @@ const prog=[
   ["A","App code — invoice ปกติ (T03)",100,"done",
     "mapper/validator/payload/persist + test เขียว · T03 ต้องมี <code>tit</code> (amount ≥ 0 ไม่มี tit → บล็อก).","—"],
   ["B","App code — ใบลดหนี้ (81)",100,"done",
-    "CN = <code>APPLY_TO_INVOICE_NO</code> + <code>INVOICE_AMOUNT&lt;0</code> + ใบต้นฉบับมีใบกำกับภาษี · H07/H08/H09 + Original/Different · ยอดลบไม่เข้าเกณฑ์ → บล็อก+guard · <b>ส่งจริงสำเร็จ 3 ก.ย. (ใบ 1800000587)</b>.","ยืนยันเคส CN ยอด≥0 กับธุรกิจ"],
+    "H07/H08/H09 ผ่าน Handle Payment (insert H07 ก่อนแล้ว 81) · H06 = IREM · Original/Correct/Different · <b>ส่งจริงสำเร็จ 3 ก.ย. (ใบ 1800000587)</b>.","—"],
   ["C","INet payload — JSON method (etaxsigndocumentjson)",100,"done",
-    "CSV → JSON keyed object · F-code generic (F38/F46/F48/F50) · phone <code>+66-</code> · H05/H06 CN · <b>UAT OK 27 ส.ค.</b> (PDF/XML) · <b>CN(81) ส่งจริงสำเร็จ 3 ก.ย. (ใบ 1800000587)</b> หลังแก้ ER002 (sign บวก ทั้ง line + footer, H07-H09).","เก็บ sample CN เพิ่ม + TH domestic"],
+    "CSV → JSON keyed object · F-code generic (F38/F46/F48/F50) · phone <code>+66-</code> · H05/H06 CN · <b>UAT OK 27 ส.ค.</b> (PDF/XML) · <b>CN(81) ส่งจริงสำเร็จ 3 ก.ย. (ใบ 1800000587)</b> หลังแก้ ER002 (sign บวก ทั้ง line + footer, H07-H09) · <b>6 ต.ค.:</b> L24 = L22 × vat_rate ต่อบรรทัด.","—"],
   ["D","Vehicle detail + payment source (F34)",100,"done",
     "vehicle: AGREEMENT_NO → CARSALE_OVERRIDE_LOG (ล่าสุด) → CAR_TECHNICAL · F34 จาก <code>CASH_TRANSACTIONS</code> (RECEIPT) + CREDIT_CARDS · 10 ก.ย. คั่น <code>\" | \"</code> Title Case.","—"],
-  ["E","SQL schema (inet.* + registry + pipeline log)",95,"prog",
-    "บนโฮสต์ prod: API <code>Ensure*</code> แล้ว 29 ก.ย. (Postgres <code>172.17.24.43</code>) · raw/staging = Phase 2.","seed registry / branch_mapping / user_acl"],
+  ["E","SQL schema (inet.* + registry + pipeline log)",100,"done",
+    "บนโฮสต์ prod: API <code>Ensure*</code> (Postgres <code>172.17.24.43</code>) · seed registry / branch_mapping / user_acl ครบ · raw/staging = Phase 2.","—"],
   ["F","Admin UI (search / mapping / monitor)",100,"done",
-    "หน้าจอเจ้าหน้าที่เสร็จ: search / mapping preview / inet-documents monitor / branch / error remediation / job scheduler / users.","ใช้ผ่าน https://etax.mastercarrental.com/preprod/... (ตอนนี้ tunnel :18080)"],
+    "search / mapping preview / inet-documents / pending-intake / branch / error remediation / job scheduler / users · ใช้ที่ <code>https://etax.mastercarrental.com/</code>.","—"],
   ["G","Certificate / บ.อ.01 (สรรพากร)",100,"done",
-    "<b>เรียบร้อยแล้ว — INET ยืนยัน 3 ก.ย.</b>: ขึ้นทะเบียน CA + บ.อ.01 ครบ · legal blocker ปลดล็อก.","ยืนยัน prod cert/key ตอน cutover"],
-  ["H","INET coordination (JSON method / SIT / UAT)",90,"prog",
-    "JSON method ✅ · CN(81) ส่งผ่านจริง ✅ · <b>SIT ผ่าน 100% (15 ก.ย.)</b> · <b>UAT 22 ก.ย. ✅</b>.","INet prod endpoint/key ภายใน 30 ก.ย. · E-Tax One 3 Users 30 ก.ย. · Go-Live E-Tax One (MCR) 1 ต.ค."],
-  ["I","CarPro Web integration (carpro_web)",90,"crit",
-    "list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (เฟส 2: insert H07 แล้ว 81) · transform/preview/Re-Sync/job scheduler บังคับ <code>carpro_web</code> · <b>3 ต.ค.:</b> ที่อยู่ B13/B14/B22/B10 จาก View Driver (<code>-AVDD</code> คีย์ <code>REF. INVOICE NO.</code>) · TH ต้องมี City + Province/State · H13 เลือกแถวที่มี Total After Tax ไม่เกิน <code>REF. INVOICE DATE</code> · live T03+81 ผ่าน · dry-run 7 วัน T03 failed 14/35 (ข้อมูล OPS).","deploy + restart API → แจ้ง OPS กรอก City/Province + Country ให้ถูกก่อน 5 ต.ค."],
-  ["J","raw.carpro_* sync + staging (i24-data-platform)",0,"todo",
-    "<b>ย้ายเป็น Phase 2</b> — ไม่บล็อก go-live แล้ว (Phase 1 ดึงจาก carpro-live ตรง).","Phase 2"],
-  ["K","Infra prod (Docker บน i24-web 172.17.26.91)",92,"prog",
-    "โฮสต์นี้คือ <b>prod</b>. Compose Up 29 ก.ย. · <b>CI/CD 30 ก.ย.</b> push main → test → deploy (<code>cicd.md</code>) · แท็ก <code>:local</code>. subdomain = <code>etax.mastercarrental.com</code>.","ลง self-hosted runner label i24-web · ชี้ DNS/TLS ของ etax.mastercarrental.com แล้วค่อย APP_ENV=prod"],
+    "<b>INET ยืนยัน 3 ก.ย.</b>: ขึ้นทะเบียน CA + บ.อ.01 ครบ · prod cert/key ใช้งานแล้ว.","—"],
+  ["H","INET coordination (JSON method / SIT / UAT / prod)",100,"done",
+    "JSON method ✅ · SIT 100% (15 ก.ย.) · UAT (22 ก.ย.) · INet prod key ✅ · E-Tax One 3 Users (30 ก.ย.) · Go-Live E-Tax One (MCR) 1 ต.ค.","—"],
+  ["I","CarPro Web integration (carpro_web)",100,"done",
+    "list + PDF <code>PrintTaxInvoicThai</code> + IREM/agreement/driver + Handle Payment (เฟส 2: insert H07 แล้ว 81) · transform/preview/Re-Sync/job scheduler บังคับ <code>carpro_web</code> · <b>3 ต.ค.:</b> ที่อยู่ B13/B14/B22/B10 จาก View Driver (<code>-AVDD</code> คีย์ <code>REF. INVOICE NO.</code>) · TH ต้องมี City + Province/State · H13 เลือกแถวที่มี Total After Tax ไม่เกิน <code>REF. INVOICE DATE</code> · live T03+81 ผ่าน · <b>8 ต.ค.:</b> B25/O25 ตรวจกับ <code>iso_countries</code>.","—"],
+  ["K","Infra prod (Docker บน i24-web 172.17.26.91)",100,"done",
+    "Compose 29 ก.ย. · CI/CD push main → test → deploy บน self-hosted runner <code>i24-web</code> ✅ · <code>APP_ENV=prod</code> ✅ · <code>https://etax.mastercarrental.com/</code> ✅.","—"],
   ["L","SIT — INet sandbox",100,"done",
     "<b>ผ่าน 100% (15 ก.ย.)</b> · catalog July + samples · T03 + CN(81) ส่งผ่าน INET แล้ว.","—"],
   ["M","UAT + Training",100,"done",
-    "<b>รันแล้ว 22 ก.ย.</b> · UAT Sign-Off FM-I24-IT-019.","แก้ P1 ที่เหลือก่อน freeze 2 ต.ค."],
+    "<b>รันแล้ว 22 ก.ย.</b> · UAT Sign-Off FM-I24-IT-019.","—"],
   ["O","User Manual + Login (Data Warehouse)",100,"done",
     "คู่มือหน้าจอ <code>/e-tax/*</code> (search / mapping / inet-documents / error remediation / job scheduler) + user/role บน prod · <b>จัดส่งแล้ว 3 ต.ค.</b>.","—"],
-  ["N","Production cutover + day-1 watch",0,"prog",
-    "Go-Live Data Warehouse + เปิด job scheduler etax_transform (carpro_web) ส่ง E-Tax One + เฝ้า failed / submit_status.","M8 (5 ต.ค.)"],
+  ["N","Production cutover + day-1 watch",100,"done",
+    "<b>Go-Live 5 ต.ค.</b> · เปิด job scheduler <code>etax_transform</code> ส่ง E-Tax One · ปรับหลัง go-live 5–8 ต.ค. (pending-intake · สาขา CarPro 2 หลัก · ER011 pre-check · job lease/pagination).","ดูแลตาม runbook ใน plan_timeline.md"],
 ];
 const pb=document.getElementById("prows");
 function renderWS(filter){
@@ -532,17 +510,17 @@ const ms=[
   ["15 ก.ย.","M5","SIT — INet sandbox ผ่าน","ผ่าน 100%","done"],
   ["22 ก.ย.","M3b","CarPro Web integration ใช้ใน UAT","transform/preview/Re-Sync ผ่าน carpro_web","done"],
   ["22 ก.ย.","M6","UAT + Training","UAT Sign-Off FM-I24-IT-019","done"],
-  ["29–30 ก.ย.","M7a","Docker prod + CI/CD ใน repo","stack ✅ · pipeline ✅ · รอ runner + etax.mastercarrental.com","done"],
+  ["29–30 ก.ย.","M7a","Docker prod + CI/CD","stack ✅ · runner i24-web ✅ · etax.mastercarrental.com ✅","done"],
   ["30 ก.ย.","M7c","ส่งมอบ E-Tax One 3 Users","INET → BU · เข้า etax.one.th ได้ครบ","done"],
   ["1 ต.ค.","M7d","Go-Live E-Tax One (MCR) + นำเข้าข้อมูล CarPro","inet.* มีใบจาก carpro_web ครบ · ยังไม่ส่ง INet","done"],
   ["2 ต.ค.","M7","Readiness review + freeze","INet prod key + CARPRO_WEB_COOKIE + checklist ครบ","done"],
   ["3 ต.ค.","M7e","User Manual Data Warehouse + User Login","ผู้ใช้ได้ manual + login ครบ","done"],
-  ["5 ต.ค.","M8","Go-Live Data Warehouse + Job ส่ง E-Tax One","✅ พร้อม · เปิด job scheduler etax_transform · ส่งใบจริง + เฝ้า day-1","golive"],
+  ["5 ต.ค.","M8","Go-Live Data Warehouse + Job ส่ง E-Tax One","✅ LIVE · job scheduler etax_transform เปิดแล้ว · APP_ENV=prod","done golive"],
 ];
 const mb=document.getElementById("milestones");
 ms.forEach(m=>{
   const [date,id,title,gate,cls]=m;
-  const flag=cls==="golive"?" 🚀":"";
+  const flag=cls.includes("golive")?" 🚀":"";
   mb.insertAdjacentHTML("beforeend",
     `<div class="ms ${cls}">
        <div class="ms-date">${date}<span class="mid">${id}</span></div>
